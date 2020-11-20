@@ -47,6 +47,6 @@ export const registerResolver: IResolvers = {
   },
   User: {
     id: (user: User) => user._id,
-    name: (user: User) => `${user.firstName} ${user.lastName}`,
+    name: (user: User) => user.firstName && user.lastName ? `${user.firstName} ${user.lastName}` : null,
   },
 };

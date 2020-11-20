@@ -2,11 +2,12 @@ import { gql } from "apollo-server-express";
 
 export const typeDefs = gql`
   type User {
-    id: ID!
-    email: String!
+    id: ID
+    email: String
     password: String
     avatar: String
-    name: String!
+    name: String
+    loggedInWithCookie: Boolean
   }
 
   type Viewer {
@@ -15,7 +16,8 @@ export const typeDefs = gql`
 
   input LoginInput {
     email: String!
-    password: String
+    password: String,
+    withCookie: Boolean!  
   }
 
   input RegisterInput {

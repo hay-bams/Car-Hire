@@ -1,5 +1,8 @@
 import { Collection, ObjectID } from "mongodb";
 
+export interface Viewer {
+  authenticated: boolean
+}
 export interface User {
   _id: ObjectID;
   email: string;
@@ -7,6 +10,7 @@ export interface User {
   firstName:  string;
   avatar?: string;
   lastName: string
+  loggedInWithCookie?: boolean
 }
 
 export interface Database {
@@ -20,6 +24,7 @@ export interface userArgs {
 export interface Loginbody {
   email: string;
   password: string;
+  withCookie: boolean;
 }
 
 export interface RegisterBody {
