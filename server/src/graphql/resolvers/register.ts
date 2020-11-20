@@ -2,10 +2,11 @@ import { IResolvers } from 'apollo-server-express';
 import bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
 import { Database, RegisterBody, User } from '../../lib/types';
+import { setCookie } from '../../utils/setCookie';
 
 const userExist = async (db: Database, email: string) => {
   const user = await db.user.findOne({
-    email
+    email,
   });
 
   if (user) {
@@ -20,7 +21,7 @@ export const registerResolver: IResolvers = {
     register: async (
       _root: undefined,
       { input }: { input: RegisterBody },
-      { db, req, res }: { db: Database, req: Request, res: Response }
+      { db, res }: { db: Database; res: Response }
     ): Promise<User> => {
       try {
         const user = await userExist(db, input.email);
@@ -29,21 +30,23 @@ export const registerResolver: IResolvers = {
         const result = await (
           await db.user.insertOne({ ...input, password: hashedPassword })
         ).ops[0];
-        
+
+        setCookie(result, res)
+
         return {
-          _id: result._id, 
+          _id: result._id,
           email: result.email,
           avatar: result.avatar,
           firstName: result.firstName,
-          lastName: result.lastName
-        }
+          lastName: result.lastName,
+        };
       } catch (err) {
-        throw new Error(`Some error occured: ${err}`);
+        throw new Error(`Something went wrong: ${err}`);
       }
     },
   },
   User: {
     id: (user: User) => user._id,
-    name: (user: User) => `${user.firstName} ${user.lastName}`
+    name: (user: User) => `${user.firstName} ${user.lastName}`,
   },
 };
