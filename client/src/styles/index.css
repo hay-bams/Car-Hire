@@ -1,0 +1,163 @@
+@import "~antd/dist/antd.css";
+
+.app {
+  background: #fff;
+  min-height: 100vh;
+}
+
+
+/*************************** LOGIN *******************************/
+.login_form_container {
+  background: #f3f3f4;
+  height: 93vh;
+}
+
+
+.login_form {
+  width: 30%;
+  margin: 0 auto;
+  margin-top: 150px;
+  border: 1px solid #e7eaec;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.login_form .ant-input-affix-wrapper:hover, .login_form .ant-input-affix-wrapper-focused {
+  border: 1px solid #1ab394;
+  box-shadow: none;
+}
+
+.login_form .login-form-button:focus, .login-form-button:focus {
+  background: #1ab394;
+    border-color: #1ab394;
+}
+
+.logo_name {
+  font-size: 60px;
+  color: #1ab394;
+  margin: 20px auto 20px auto;
+  width: 30%;
+  letter-spacing: -10px;
+}
+
+.login_form .login-form-button {
+  display: block;
+  background: #1ab394;
+  border-color: #1ab394;
+  width: 100%;
+}
+
+.login-form-forgot {
+  text-align: center;
+  color: green;
+  margin-top: 0;
+  display: block;
+}
+
+.have-an-account {
+  display: block;
+  text-align: center;
+}
+
+.login_form .create-account-button {
+  display: block;
+  background: #e7eaec;
+  border-color:#e7eaec;
+  width: 100%;
+  color: #000
+}  
+
+/**===========================**/
+/**
+   MOBILE DEVICES
+*/
+@media only screen and (max-width: 450px) {
+  .login_form {
+    width: 95%;
+    display: flex;
+    margin: 0 auto;
+    flex-direction: column;
+    justify-content: center;
+    height: 90vh;
+    padding-top: 0;
+    border: none;
+  }
+
+  .logo_name {
+    font-size: 60px;
+    color: #e6e6e6;
+    width: 40%;
+    color: #1ab394;
+    /* margin: 0 auto 20px auto; */
+    margin: 0 auto;
+    letter-spacing: -10px
+  }
+
+  .login_form .login-form-button {
+    display: block;
+    background: #1ab394;
+    border-color: #1ab394;
+    width: 100%;
+  }
+
+  .login-form-forgot {
+    text-align: center;
+    color: green;
+    margin-top: 0;
+    display: block;
+  }
+  
+  .have-an-account {
+    display: block;
+    text-align: center;
+  }
+  
+
+  .login_form .create-account-button {
+    display: block;
+    background: #e7eaec;
+    border-color:#fff;
+    width: 100%;
+    color: #000
+  }  
+}
+
+
+
+
+
+
+
+/******************************** APP HEADER ***************************/
+.app_header {
+  width: 100%;
+  background: #fff;
+  border-bottom: 1px solid #e7eaec;
+  height: 65px;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  /* border-bottom: 2px solid red; */
+}
+
+.app_logo_search {
+  margin-left: 20px;
+}
+
+.app_logo_search .app_header_logo {
+  font-size: 50px;
+  color: #1ab394;
+  width: 50%;
+  letter-spacing: -5px;
+}
+
+.app_header .menu_items {
+  /* margin-left: 10px; */
+  margin-right: 20px;
+}
+
+.app_header_signin  {
+  color: #1ab394;
+  /* border: 2px solid red; */
+  border-bottom: 2px solid #1ab394;
+}

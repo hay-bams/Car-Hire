@@ -28,7 +28,7 @@ export const loginResolver: IResolvers = {
       _root: undefined,
       { input }: { input: Loginbody },
       { db, req, res }: { db: Database; req: Request; res: Response }
-    ): Promise<User | Viewer> => {
+    ): Promise<Viewer> => {
       try {
         const result = input.withCookie
           ? await loginViaCookie(db, req, res)
@@ -43,18 +43,19 @@ export const loginResolver: IResolvers = {
         setCookie(result, res);
         return {
           _id: result._id,
-          email: result.email,
           avatar: result.avatar,
           firstName: result.firstName,
           lastName: result.lastName,
+          authenticated: true
         };
       } catch (err) {
         throw new Error(`Something went wrong: ${err}`);
       }
     },
   },
-  User: {
+  Viewer: {
     id: (user: User) => user._id,
     name: (user: User) => user.firstName && user.lastName ? `${user.firstName} ${user.lastName}` : null,
+    hasWallet: (user: User) => user.walletId ? true: false
   },
 };
