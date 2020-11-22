@@ -28,7 +28,7 @@ export const loginResolver: IResolvers = {
       _root: undefined,
       { input }: { input: Loginbody },
       { db, req, res }: { db: Database; req: Request; res: Response }
-    ): Promise<Viewer> => {
+    ): Promise<User> => {
       try {
         const result = input.withCookie
           ? await loginViaCookie(db, req, res)
@@ -37,12 +37,13 @@ export const loginResolver: IResolvers = {
             });
 
         if (!result ) {
-          return {authenticated: false}
+          throw new Error(`Could not log in user, Try again`)
         }
         
-        setCookie(result, res);
+        setCookie(result._id, res);
         return {
           _id: result._id,
+          email: result.email,
           avatar: result.avatar,
           firstName: result.firstName,
           lastName: result.lastName,
@@ -53,7 +54,7 @@ export const loginResolver: IResolvers = {
       }
     },
   },
-  Viewer: {
+  User: {
     id: (user: User) => user._id,
     name: (user: User) => user.firstName && user.lastName ? `${user.firstName} ${user.lastName}` : null,
     hasWallet: (user: User) => user.walletId ? true: false

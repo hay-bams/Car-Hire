@@ -22,7 +22,7 @@ export const registerResolver: IResolvers = {
       _root: undefined,
       { input }: { input: RegisterBody },
       { db, res }: { db: Database; res: Response }
-    ): Promise<Viewer> => {
+    ): Promise<User> => {
       try {
         const user = await userExist(db, input.email);
         if (user) throw new Error('user already exists');
@@ -31,22 +31,28 @@ export const registerResolver: IResolvers = {
           await db.user.insertOne({ ...input, password: hashedPassword })
         ).ops[0];
 
-        setCookie(result, res)
+        if (!result ) {
+          throw new Error(`Could not Singup  user, Try again`)
+        }
+
+        setCookie(result._id, res)
 
         return {
           _id: result._id,
+          email: result.email,
           avatar: result.avatar,
           walletId: result.walletId,
           firstName: result.firstName,
           lastName: result.lastName,
           authenticated: true
         };
+        
       } catch (err) {
         throw new Error(`Something went wrong: ${err}`);
       }
     },
   },
-  Viewer: {
+  User: {
     id: (user: User) => user._id,
     name: (user: User) => user.firstName && user.lastName ? `${user.firstName} ${user.lastName}` : null,
     hasWallet: (user: User) => user.walletId ? true: false

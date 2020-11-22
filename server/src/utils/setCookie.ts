@@ -1,4 +1,5 @@
 import { Response } from "express"
+import { ObjectID } from "mongodb"
 import { User } from "../lib/types"
 
 const cookieOptions = {
@@ -8,8 +9,8 @@ const cookieOptions = {
   secure: process.env.NODE_ENV === 'development' ? false : true
 }
 
-export const setCookie = (result: User, res: Response) => {
-  res.cookie('user', result._id, {
+export const setCookie = (id: ObjectID | undefined, res: Response) => {
+  res.cookie('user', id, {
     ...cookieOptions,
     maxAge: 1000 * 60 * 60 * 24 * 365
   })

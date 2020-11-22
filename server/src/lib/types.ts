@@ -9,13 +9,14 @@ export interface Viewer {
   lastName?: string 
 }
 export interface User {
-  _id: ObjectID;
-  email: string;
+  _id?: ObjectID;
+  email?: string;
   password?: string;
-  firstName:  string;
+  firstName?:  string;
   avatar?: string;
-  lastName: string;
+  lastName?: string;
   walletId?: string
+  authenticated?: boolean,
 }
 
 export interface Database {

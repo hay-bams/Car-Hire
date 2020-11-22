@@ -1,21 +1,21 @@
 import { gql } from "apollo-server-express";
 
 export const typeDefs = gql`
-  # type User {
-  #   id: ID
-  #   email: String
-  #   password: String
-  #   avatar: String
-  #   name: String
-  # }
-
-  type Viewer {
+  type User {
     id: ID
+    avatar: String
     name: String
     hasWallet: Boolean
-    avatar: String
     authenticated: Boolean!
   }
+
+  # type Viewer {
+  #   id: ID
+  #   name: String
+  #   hasWallet: Boolean
+  #   avatar: String
+  #   authenticated: Boolean!
+  # }
 
   input LoginInput {
     email: String!
@@ -31,11 +31,11 @@ export const typeDefs = gql`
   }
 
   type Query {
-    user: Viewer!
+    user: User!
   }
 
   type Mutation {
-    login(input: LoginInput): Viewer!
-    register(input: RegisterInput): Viewer!
+    login(input: LoginInput): User!
+    register(input: RegisterInput): User!
   }
 `
