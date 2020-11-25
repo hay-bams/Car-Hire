@@ -27,7 +27,7 @@ import {
 } from './lib/graphql/mutations/Login/__generated__/Login';
 import { LOG_IN } from './lib/graphql';
 import { User as UserType } from './lib/types';
-import { AppHeaderSkeleton } from './lib/components';
+import { AppHeaderSkeleton, ErrorBanner } from './lib/components';
 import { Spin } from 'antd';
 
 const cache = new InMemoryCache();
@@ -61,6 +61,13 @@ const App = () => {
     loginRef.current({ variables: { input: { withCookie: true } } });
   }, []);
 
+  const LoginErrorBanner = error ? (
+    <ErrorBanner
+      message="Uh oh! Something went wrong :("
+      description={error?.message}
+    />
+  ) : null;
+
   if (!user.madeRequest && !error) {
     return (
       <Layout>
@@ -76,6 +83,7 @@ const App = () => {
     <Router>
       <Layout className="app layout">
         <AppHeader user={user} setUser={setUser} />
+        {LoginErrorBanner}
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/host" component={Host} />

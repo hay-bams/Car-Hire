@@ -76,7 +76,7 @@ export const Login = ({ setUser, user }: Props) => {
     <Content>
       {Error}
       <div className="login_form">
-        <h1 className="logo_name">CAR+</h1>
+        <h1 className="signin-title">Signin</h1>
         <LoginForm onLogin={onLogin} setForm={setForm} form={form} />
       </div>
     </Content>

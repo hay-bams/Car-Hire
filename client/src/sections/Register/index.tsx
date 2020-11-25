@@ -77,7 +77,7 @@ export const Register = ({ setUser, user }: Props) => {
     <Content>
       {Error}
       <div className="login_form">
-        <h1 className="logo_name">CAR+</h1>
+        <h1 className="register-title ">Register</h1>
         <RegisterForm onRegister={onRegister} setForm={setForm} form={form} />
       </div>
     </Content>

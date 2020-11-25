@@ -1,6 +1,5 @@
-@import "~antd/dist/antd.css";
+@import '~antd/dist/antd.css';
 
- 
 /****************************** App ********************************/
 .app {
   background: #fff;
@@ -15,13 +14,11 @@
   background: #fff;
 }
 
-
-/*************************** LOGIN *******************************/
+/*************************** LOGIN / REGISTER *******************************/
 .login_form_container {
   background: #f3f3f4;
   height: 93vh;
 }
-
 
 .login_form {
   width: 20%;
@@ -32,14 +29,16 @@
   padding-right: 10px;
 }
 
-.login_form .ant-input-affix-wrapper:hover, .login_form .ant-input-affix-wrapper-focused {
+.login_form .ant-input-affix-wrapper:hover,
+.login_form .ant-input-affix-wrapper-focused {
   border: 1px solid #1ab394;
   box-shadow: none;
 }
 
-.login_form .login-form-button:focus, .login-form-button:focus {
+.login_form .login-form-button:focus,
+.login-form-button:focus {
   background: #1ab394;
-    border-color: #1ab394;
+  border-color: #1ab394;
 }
 
 .logo_name {
@@ -72,15 +71,29 @@
 .login_form .create-account-button {
   display: block;
   background: #e7eaec;
-  border-color:#e7eaec;
+  border-color: #e7eaec;
   width: 100%;
-  color: #000
-}  
+  color: #000;
+}
 
 .register-in-spin {
-  display:  flex;
+  display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.signin-title {
+  font-size: 50px;
+  color: #477b71;
+  margin: 20px auto 20px auto;
+  width: 40%;
+}
+
+.register-title {
+  font-size: 50px;
+  color: #477b71;
+  margin: 20px auto 20px auto;
+  width: 55%;
 }
 
 /**===========================**/
@@ -97,6 +110,8 @@
     height: 90vh;
     padding-top: 0;
     border: none;
+    position: absolute;
+    top: 0;
   }
 
   .logo_name {
@@ -106,7 +121,7 @@
     color: #1ab394;
     /* margin: 0 auto 20px auto; */
     margin: 0 auto;
-    letter-spacing: -10px
+    letter-spacing: -10px;
   }
 
   .login_form .login-form-button {
@@ -122,27 +137,34 @@
     margin-top: 0;
     display: block;
   }
-  
+
   .have-an-account {
     display: block;
     text-align: center;
   }
-  
 
   .login_form .create-account-button {
     display: block;
     background: #e7eaec;
-    border-color:#fff;
+    border-color: #fff;
     width: 100%;
-    color: #000
-  }  
+    color: #000;
+  }
+
+  .signin-title {
+    font-size: 50px;
+    color: #477b71;
+    margin: 0 auto 20px auto;
+    width: 40%;
+  }
+  
+  .register-title {
+    font-size: 50px;
+    color: #477b71;
+    margin: 20px auto 20px auto;
+    width: 55%;
+  }
 }
-
-
-
-
-
-
 
 /******************************** APP HEADER ***************************/
 .app_header {
@@ -172,15 +194,24 @@
   margin-right: 20px;
 }
 
-.app_header_signin  {
+.app_header_menu > .ant-menu-item-selected a,
+.app_header_menu > .ant-menu-item a,
+.app_header_menu > .ant-menu-item a:hover {
   color: #1ab394;
-  /* border: 2px solid red; */
-  border-bottom: 2px solid #1ab394;
 }
 
+.app_header_menu.ant-menu-horizontal:not(.ant-menu-dark)
+  > .ant-menu-item-selected {
+  border: none;
+}
+
+.app_header_menu.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:hover,
+.app_header_menu.ant-menu-horizontal:not(.ant-menu-dark)
+  > .ant-menu-item:active {
+  border-bottom: 2px solid #1ab394;
+}
 
 /*** Componentes ***/
 
 .skeleton-css {
-  
 }

@@ -12,14 +12,29 @@ interface Props {
 
 const { SubMenu } = Menu;
 
+// TODO: some box shadows to the happ header
+ 
+
 export const MenuItems = ({ user, setUser }: Props) => {
   return (
-    <Menu theme="light" mode="horizontal" defaultSelectedKeys={['1']}>
+    <Menu
+      theme="light"
+      mode="horizontal"
+      defaultSelectedKeys={['1']}
+      className="app_header_menu"
+    >
       {!user.id ? (
-        <Menu.Item key="1" className="app_header_signin">
-          <Link to="/login">Sigin</Link>
-        </Menu.Item>
+        <>
+          <Menu.Item key="1">
+            <Link to="/login">Signin</Link>
+          </Menu.Item>
+
+          <Menu.Item key="4">
+            <Link to="/register">Register</Link>
+          </Menu.Item>
+        </>
       ) : null}
+
       {user.id ? (
         <SubMenu
           key="sub1"
