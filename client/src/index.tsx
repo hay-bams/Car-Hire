@@ -27,6 +27,8 @@ import {
 } from './lib/graphql/mutations/Login/__generated__/Login';
 import { LOG_IN } from './lib/graphql';
 import { User as UserType } from './lib/types';
+import { AppHeaderSkeleton } from './lib/components';
+import { Spin } from 'antd';
 
 const cache = new InMemoryCache();
 const client = new ApolloClient({
@@ -40,6 +42,7 @@ const initialUser: UserType = {
   name: null,
   avatar: null,
   hasWallet: false,
+  madeRequest: false,
 };
 
 const App = () => {
@@ -57,6 +60,17 @@ const App = () => {
   useEffect(() => {
     loginRef.current({ variables: { input: { withCookie: true } } });
   }, []);
+
+  if (!user.madeRequest && !error) {
+    return (
+      <Layout>
+        <AppHeaderSkeleton />
+        <div className="launch-spinner">
+        </div>
+      </Layout>
+    );
+  }
+
   return (
     <Router>
       <Layout className="app layout">

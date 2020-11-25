@@ -15,6 +15,7 @@ export interface Login_login {
   avatar: string | null;
   name: string | null;
   hasWallet: boolean | null;
+  madeRequest: boolean;
 }
 
 export interface Login {

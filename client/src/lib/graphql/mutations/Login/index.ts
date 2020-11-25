@@ -7,6 +7,7 @@ export  const LOG_IN = gql`
       avatar
       name
       hasWallet
+      madeRequest
     }
   }
 `

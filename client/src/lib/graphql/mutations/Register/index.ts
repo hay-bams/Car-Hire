@@ -7,6 +7,7 @@ export const REGISTER = gql`
     avatar
     name
     hasWallet
+    madeRequest
   }
   }
 `

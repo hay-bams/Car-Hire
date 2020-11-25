@@ -31,11 +31,11 @@ export const registerResolver: IResolvers = {
           await db.user.insertOne({ ...input, password: hashedPassword })
         ).ops[0];
 
-        if (!result ) {
-          throw new Error(`Could not Singup  user, Try again`)
+        if (!result) {
+          throw new Error(`Could not Singup  user, Try again`);
         }
 
-        setCookie(result._id, res)
+        setCookie(result._id, res);
 
         return {
           _id: result._id,
@@ -46,7 +46,6 @@ export const registerResolver: IResolvers = {
           lastName: result.lastName,
           // authenticated: true
         };
-
       } catch (err) {
         throw new Error(`Something went wrong: ${err}`);
       }
@@ -54,7 +53,11 @@ export const registerResolver: IResolvers = {
   },
   User: {
     id: (user: User) => user._id,
-    name: (user: User) => user.firstName && user.lastName ? `${user.firstName} ${user.lastName}` : null,
-    hasWallet: (user: User) => user.walletId ? true: false
+    name: (user: User) =>
+      user.firstName && user.lastName
+        ? `${user.firstName} ${user.lastName}`
+        : null,
+    hasWallet: (user: User) => (user.walletId ? true : false),
+    madeRequest: () => true,
   },
 };

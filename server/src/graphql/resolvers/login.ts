@@ -73,5 +73,6 @@ export const loginResolver: IResolvers = {
         ? `${user.firstName} ${user.lastName}`
         : null,
     hasWallet: (user: User) => (user.walletId ? true : false),
+    madeRequest: () => true
   },
 };

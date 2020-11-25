@@ -6,6 +6,7 @@ export const typeDefs = gql`
     avatar: String
     name: String
     hasWallet: Boolean
+    madeRequest: Boolean!
     # authenticated: Boolean!
   }
 
