@@ -17,7 +17,7 @@ export const MenuItems = ({ user, setUser }: Props) => {
     <Menu theme="light" mode="horizontal" defaultSelectedKeys={['1']}>
       {!user.id ? (
         <Menu.Item key="1" className="app_header_signin">
-          Sigin
+          <Link to="/login">Sigin</Link>
         </Menu.Item>
       ) : null}
       {user.id ? (
@@ -25,18 +25,19 @@ export const MenuItems = ({ user, setUser }: Props) => {
           key="sub1"
           title={<Avatar src={user.avatar} icon={<UserOutlined />} />}
         >
-          <Link to={`/user/${user.id}`}>
-            <Menu.Item key="3">
+          <Menu.Item key="3">
+            <Link to={`/user/${user.id}`}>
               <UserOutlined />
               Profile
-            </Menu.Item>
-          </Link>
-          <Link to="/logout">
-            <Menu.Item key="2">
+            </Link>
+          </Menu.Item>
+
+          <Menu.Item key="2">
+            <Link to="/logout">
               <LogoutOutlined />
               Logout
-            </Menu.Item>
-          </Link>
+            </Link>
+          </Menu.Item>
         </SubMenu>
       ) : null}
     </Menu>

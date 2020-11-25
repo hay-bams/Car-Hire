@@ -61,7 +61,6 @@ export const Login = ({ setUser, user }: Props) => {
   }
 
   if (loginData && loginData.login.id) {
-    console.log(loginData.login)
     const { id: userId } = loginData.login;
     return <Redirect to={`user/${userId}`} />;
   }
@@ -69,7 +68,7 @@ export const Login = ({ setUser, user }: Props) => {
   const Error = loginError ? (
     <ErrorBanner
       message="Uh oh! Something went wrong :("
-      description="Sorry we were not able to log you in, Try again Later"
+      description={loginError?.message}
     />
   ) : null;
 

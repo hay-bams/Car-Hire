@@ -7,16 +7,16 @@ import { setCookie } from '../../utils/setCookie';
 
 const loginViaCookie = async (db: Database, req: Request, res: Response) => {
   const result = await db.user.findOne({
-    _id: new ObjectID(req.signedCookies.user)
-  })
+    _id: new ObjectID(req.signedCookies.user),
+  });
 
-  if(!result) {
-     res.clearCookie('user')
-     return null
+  if (!result) {
+    res.clearCookie('user');
+    return null;
   }
 
-  return result
-}
+  return result;
+};
 
 export const loginResolver: IResolvers = {
   Mutation: {
@@ -32,25 +32,32 @@ export const loginResolver: IResolvers = {
               email: input.email,
             });
 
-        if (!result && input.withCookie ) {
-           return {}
+        if (!result && input.withCookie) {
+          return {};
         }
 
-        if(!result) {
-          throw new Error('User not Found')
+        if (!result) {
+          throw new Error('User not Found');
         }
 
-        const match = await bcrypt.compare(input.password, result.password ? result.password : '');
-        if(!match) throw new Error('Wrong Password')
+        if (!input.withCookie) {
+          const match = await bcrypt.compare(
+            input.password,
+            result.password ? result.password : ''
+          );
+          if (!match)
+            throw new Error(
+              'Wrong Password, Please Try again with the correct password'
+            );
+        }
 
-        
-        setCookie(result._id, res); 
+        setCookie(result._id, res);
 
         return {
           _id: result._id,
           email: result.email,
-          avatar: result.avatar || 'https://via.placeholder.com/128' ,
-          firstName: result.firstName, 
+          avatar: result.avatar || 'https://via.placeholder.com/128',
+          firstName: result.firstName,
           lastName: result.lastName,
           // authenticated: true
         };
@@ -61,7 +68,10 @@ export const loginResolver: IResolvers = {
   },
   User: {
     id: (user: User) => user._id,
-    name: (user: User) => user.firstName && user.lastName ? `${user.firstName} ${user.lastName}` : null,
-    hasWallet: (user: User) => user.walletId ? true: false
+    name: (user: User) =>
+      user.firstName && user.lastName
+        ? `${user.firstName} ${user.lastName}`
+        : null,
+    hasWallet: (user: User) => (user.walletId ? true : false),
   },
 };
