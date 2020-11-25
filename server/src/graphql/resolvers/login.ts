@@ -1,11 +1,13 @@
 import { IResolvers } from 'apollo-server-express';
 import { Request, Response } from 'express';
-import { Database, User, Loginbody, Viewer } from '../../lib/types';
+import { ObjectID } from 'mongodb';
+import bcrypt from 'bcrypt';
+import { Database, User, Loginbody } from '../../lib/types';
 import { setCookie } from '../../utils/setCookie';
 
 const loginViaCookie = async (db: Database, req: Request, res: Response) => {
   const result = await db.user.findOne({
-    _id: req.signedCookies.user
+    _id: new ObjectID(req.signedCookies.user)
   })
 
   if(!result) {
@@ -13,13 +15,7 @@ const loginViaCookie = async (db: Database, req: Request, res: Response) => {
      return null
   }
 
-  return {
-    _id: result._id,
-    email: result.email,
-    avatar: result.avatar,
-    firstName: result.firstName,
-    lastName: result.lastName,
-  };
+  return result
 }
 
 export const loginResolver: IResolvers = {
@@ -36,18 +32,27 @@ export const loginResolver: IResolvers = {
               email: input.email,
             });
 
-        if (!result ) {
-          throw new Error(`Could not log in user, Try again`)
+        if (!result && input.withCookie ) {
+           return {}
         }
+
+        if(!result) {
+          throw new Error('User not Found')
+        }
+
+        const match = await bcrypt.compare(input.password, result.password ? result.password : '');
+        if(!match) throw new Error('Wrong Password')
+
         
-        setCookie(result._id, res);
+        setCookie(result._id, res); 
+
         return {
           _id: result._id,
           email: result.email,
-          avatar: result.avatar,
-          firstName: result.firstName,
+          avatar: result.avatar || 'https://via.placeholder.com/128' ,
+          firstName: result.firstName, 
           lastName: result.lastName,
-          authenticated: true
+          // authenticated: true
         };
       } catch (err) {
         throw new Error(`Something went wrong: ${err}`);

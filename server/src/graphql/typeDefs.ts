@@ -6,7 +6,7 @@ export const typeDefs = gql`
     avatar: String
     name: String
     hasWallet: Boolean
-    authenticated: Boolean!
+    # authenticated: Boolean!
   }
 
   # type Viewer {
@@ -18,7 +18,7 @@ export const typeDefs = gql`
   # }
 
   input LoginInput {
-    email: String!
+    email: String
     password: String,
     withCookie: Boolean!  
   }
@@ -36,6 +36,6 @@ export const typeDefs = gql`
 
   type Mutation {
     login(input: LoginInput): User!
-    register(input: RegisterInput): User!
+    register(input: RegisterInput!): User!
   }
 `

@@ -2,15 +2,15 @@ import React from 'react';
 import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-import { LoginInput } from '../../../../lib/graphql/globalTypes';
+import { RegisterInput } from '../../../../lib/graphql/globalTypes';
 
 interface Props {
-  onLogin: (input: LoginInput) => void;
+  onRegister: (input: RegisterInput ) => void;
   setForm: <TValue>(key: string, value: TValue) => void;
-  form: LoginInput;
+  form: RegisterInput;
 }
 
-export const LoginForm = ({ onLogin, setForm, form }: Props) => {
+export const RegisterForm = ({ onRegister, setForm, form }: Props) => {
   return (
     <Form
       name="normal_login"
@@ -28,8 +28,33 @@ export const LoginForm = ({ onLogin, setForm, form }: Props) => {
           placeholder="Email"
         />
       </Form.Item>
+
       <Form.Item
         name="password"
+        className="form-item-input"
+        rules={[{ required: true, message: 'Please input your First Name!' }]}
+      >
+        <Input
+          onChange={(e) => setForm<string>('firstName', e.target.value)}
+          prefix={<UserOutlined className="site-form-item-icon" />}
+          placeholder="First Name"
+        />
+      </Form.Item>
+
+      <Form.Item
+        name="lastName"
+        className="form-item-input"
+        rules={[{ required: true, message: 'Please input your Last NAme!' }]}
+      >
+        <Input
+          onChange={(e) => setForm<string>('lastName', e.target.value)}
+          prefix={<UserOutlined className="site-form-item-icon" />}
+          placeholder="Last Name"
+        />
+      </Form.Item>
+
+      <Form.Item
+        name="firstName"
         className="form-item"
         rules={[{ required: true, message: 'Please input your Password!' }]}
       >
@@ -42,28 +67,25 @@ export const LoginForm = ({ onLogin, setForm, form }: Props) => {
       </Form.Item>
       <Form.Item>
         <Button
-          onClick={() => onLogin(form)}
           type="primary"
           htmlType="submit"
           className="login-form-button"
+          onClick={() => onRegister(form)}
         >
-          Log in
+          Register
         </Button>
       </Form.Item>
       <Form.Item>
-        <Link className="login-form-forgot" to="/">
-          Forgot password
-        </Link>
-        <span className="have-an-account">don't have an account ?</span>
+        <span className="have-an-account">Have an account ?</span>
       </Form.Item>
       <Form.Item>
-        <Link to="/register">
+        <Link to="/login">
           <Button
             type="primary"
             htmlType="submit"
             className="create-account-button"
           >
-            Create an account
+            Sign in
           </Button>
         </Link>
       </Form.Item>

@@ -14,9 +14,9 @@
 
 
 .login_form {
-  width: 30%;
+  width: 20%;
   margin: 0 auto;
-  margin-top: 150px;
+  margin-top: 100px;
   border: 1px solid #e7eaec;
   padding-left: 10px;
   padding-right: 10px;
@@ -33,7 +33,7 @@
 }
 
 .logo_name {
-  font-size: 60px;
+  font-size: 50px;
   color: #1ab394;
   margin: 20px auto 20px auto;
   width: 30%;
@@ -66,6 +66,12 @@
   width: 100%;
   color: #000
 }  
+
+.register-in-spin {
+  display:  flex;
+  justify-content: center;
+  align-items: center;
+}
 
 /**===========================**/
 /**
@@ -145,7 +151,7 @@
 }
 
 .app_logo_search .app_header_logo {
-  font-size: 50px;
+  font-size: 40px;
   color: #1ab394;
   width: 50%;
   letter-spacing: -5px;

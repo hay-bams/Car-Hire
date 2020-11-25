@@ -1,6 +1,5 @@
 import { Response } from "express"
 import { ObjectID } from "mongodb"
-import { User } from "../lib/types"
 
 const cookieOptions = {
   httpOnly: true,
@@ -10,8 +9,10 @@ const cookieOptions = {
 }
 
 export const setCookie = (id: ObjectID | undefined, res: Response) => {
-  res.cookie('user', id, {
-    ...cookieOptions,
-    maxAge: 1000 * 60 * 60 * 24 * 365
-  })
+  if(id) {
+    res.cookie('user', id, {
+      ...cookieOptions,
+      maxAge: 1000 * 60 * 60 * 24 * 365
+    })
+  }
 }

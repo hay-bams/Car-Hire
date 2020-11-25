@@ -1,7 +1,7 @@
 import { IResolvers } from 'apollo-server-express';
 import bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
-import { Database, RegisterBody, User, Viewer } from '../../lib/types';
+import { Database, RegisterBody, User } from '../../lib/types';
 import { setCookie } from '../../utils/setCookie';
 
 const userExist = async (db: Database, email: string) => {
@@ -40,13 +40,13 @@ export const registerResolver: IResolvers = {
         return {
           _id: result._id,
           email: result.email,
-          avatar: result.avatar,
+          avatar: result.avatar || 'https://via.placeholder.com/128',
           walletId: result.walletId,
           firstName: result.firstName,
           lastName: result.lastName,
-          authenticated: true
+          // authenticated: true
         };
-        
+
       } catch (err) {
         throw new Error(`Something went wrong: ${err}`);
       }

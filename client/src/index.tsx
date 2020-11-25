@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  useMutation,
+} from '@apollo/client';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import {
@@ -10,29 +15,71 @@ import {
   Listings,
   User,
   Login,
+  Register,
   NotFound,
 } from './sections';
 import './styles/index.css';
 import Layout from 'antd/lib/layout/layout';
 import { AppHeader } from './sections/AppHeader';
+import {
+  Login as LoginData,
+  LoginVariables,
+} from './lib/graphql/mutations/Login/__generated__/Login';
+import { LOG_IN } from './lib/graphql';
+import { User as UserType } from './lib/types';
 
 const cache = new InMemoryCache();
 const client = new ApolloClient({
   uri: 'http://localhost:9003/api',
   cache,
+  credentials: 'include',
 });
 
+const initialUser: UserType = {
+  id: null,
+  name: null,
+  avatar: null,
+  hasWallet: false,
+};
+
 const App = () => {
+  const [login, { error }] = useMutation<LoginData, LoginVariables>(LOG_IN, {
+    onCompleted: (data) => {
+      if (data && data.login) {
+        setUser(data.login);
+      }
+    },
+  });
+  const [user, setUser] = useState<UserType>(initialUser);
+
+  const loginRef = useRef(login);
+
+  useEffect(() => {
+    loginRef.current({ variables: { input: { withCookie: true } } });
+  }, []);
   return (
     <Router>
       <Layout className="app layout">
-        <AppHeader />
+        <AppHeader user={user} setUser={setUser} />
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/host" component={Host} />
           <Route exact path="/listing/:id" component={Listing} />
           <Route exact path="/listings/:location?" component={Listings} />
-          <Route exact path="/login" component={Login} />
+          <Route
+            exact
+            path="/login"
+            render={(props) => (
+              <Login {...props} setUser={setUser} user={user} />
+            )}
+          />
+          <Route
+            exact
+            path="/register"
+            render={(props) => (
+              <Register {...props} setUser={setUser} user={user} />
+            )}
+          />
           <Route exact path="/user/:id" component={User} />
           <Route component={NotFound} />
         </Switch>
