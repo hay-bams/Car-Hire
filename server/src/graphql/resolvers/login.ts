@@ -37,7 +37,7 @@ export const loginResolver: IResolvers = {
         }
 
         if (!result) {
-          throw new Error('User not Found');
+          throw new Error('User does not exist, Please confirm your email is correct or signup');
         }
 
         if (!input.withCookie) {

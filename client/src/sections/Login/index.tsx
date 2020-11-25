@@ -73,7 +73,7 @@ export const Login = ({ setUser, user }: Props) => {
   ) : null;
 
   return (
-    <Content className="log-in-container">
+    <Content>
       {Error}
       <div className="login_form">
         <h1 className="logo_name">CAR+</h1>

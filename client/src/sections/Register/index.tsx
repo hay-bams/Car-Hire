@@ -12,6 +12,7 @@ import { User } from '../../lib/types';
 import { displaySccessNotification } from '../../lib/utils';
 import { Redirect } from 'react-router-dom';
 import { Spin, Layout } from 'antd';
+import { ErrorBanner } from '../../lib/components';
 
 interface Props {
   setUser: (user: User) => void;
@@ -55,6 +56,13 @@ export const Register = ({ setUser, user }: Props) => {
     );
   }
 
+  const Error = registerError ? (
+    <ErrorBanner
+      message="Uh oh! Something went wrong :("
+      description={registerError?.message}
+    />
+  ) : null;
+
   // If user is logged in, Redirect
   if (user.id) {
     return <Redirect to="/" />;
@@ -66,9 +74,12 @@ export const Register = ({ setUser, user }: Props) => {
   }
 
   return (
-    <div className="login_form">
-      <h1 className="logo_name">CAR+</h1>
-      <RegisterForm onRegister={onRegister} setForm={setForm} form={form} />
-    </div>
+    <Content>
+      {Error}
+      <div className="login_form">
+        <h1 className="logo_name">CAR+</h1>
+        <RegisterForm onRegister={onRegister} setForm={setForm} form={form} />
+      </div>
+    </Content>
   );
 };
