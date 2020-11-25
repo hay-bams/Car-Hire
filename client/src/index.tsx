@@ -66,6 +66,7 @@ const App = () => {
       <Layout>
         <AppHeaderSkeleton />
         <div className="launch-spinner">
+          <Spin tip="Launching Car Hire+" size="large" />
         </div>
       </Layout>
     );
