@@ -12,6 +12,15 @@
   justify-content: center;
   align-items: center;
   background: #fff;
+  color: red;
+}
+
+.launch-spinner .ant-spin-dot-item {
+  background: #1ab394;
+}
+
+.launch-spinner .ant-spin-text {
+  color: #1ab394;
 }
 
 /*************************** LOGIN / REGISTER *******************************/
@@ -175,6 +184,7 @@
   padding: 0;
   display: flex;
   justify-content: space-between;
+  box-shadow: 10px 2px 15px 1px #e7eaec;
   /* border-bottom: 2px solid red; */
 }
 
