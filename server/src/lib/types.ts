@@ -1,13 +1,9 @@
 import { Collection, ObjectID } from "mongodb";
 
-// export interface Viewer {
-//   _id?: ObjectID,
-//   walletId?: string,
-//   avatar?: string,
-//   authenticated: boolean,
-//   firstName?: string
-//   lastName?: string 
-// }
+export interface UserArgs {
+  id: string
+}
+
 export interface User {
   _id?: ObjectID;
   email?: string;

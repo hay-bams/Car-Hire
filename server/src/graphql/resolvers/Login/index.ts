@@ -2,8 +2,9 @@ import { IResolvers } from 'apollo-server-express';
 import { Request, Response } from 'express';
 import { ObjectID } from 'mongodb';
 import bcrypt from 'bcrypt';
-import { Database, User, Loginbody } from '../../lib/types';
-import { setCookie } from '../../utils/setCookie';
+import { Database, User, Loginbody } from '../../../lib/types';
+import { setCookie } from '../../../utils/setCookie';
+import { formatUser } from '../../../utils/formatUser';
 
 const loginViaCookie = async (db: Database, req: Request, res: Response) => {
   const result = await db.user.findOne({
@@ -52,27 +53,10 @@ export const loginResolver: IResolvers = {
         }
 
         setCookie(result._id, res);
-
-        return {
-          _id: result._id,
-          email: result.email,
-          avatar: result.avatar || 'https://via.placeholder.com/128',
-          firstName: result.firstName,
-          lastName: result.lastName,
-          // authenticated: true
-        };
+        return formatUser(result)
       } catch (err) {
         throw new Error(`Something went wrong: ${err}`);
       }
     },
-  },
-  User: {
-    id: (user: User) => user._id,
-    name: (user: User) =>
-      user.firstName && user.lastName
-        ? `${user.firstName} ${user.lastName}`
-        : null,
-    hasWallet: (user: User) => (user.walletId ? true : false),
-    madeRequest: () => true
   },
 };

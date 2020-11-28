@@ -1,5 +1,10 @@
 @import '~antd/dist/antd.css';
 
+:root {
+  --primary: #1ab394;
+  --primary-dim: #477b71
+}
+
 /****************************** App ********************************/
 .app {
   background: #fff;
@@ -16,11 +21,11 @@
 }
 
 .launch-spinner .ant-spin-dot-item {
-  background: #1ab394;
+  background: var(--primary);
 }
 
 .launch-spinner .ant-spin-text {
-  color: #1ab394;
+  color: var(--primary);
 }
 
 /*************************** LOGIN / REGISTER *******************************/
@@ -40,19 +45,19 @@
 
 .login_form .ant-input-affix-wrapper:hover,
 .login_form .ant-input-affix-wrapper-focused {
-  border: 1px solid #1ab394;
+  border: 1px solid var(--primary);
   box-shadow: none;
 }
 
 .login_form .login-form-button:focus,
 .login-form-button:focus {
-  background: #1ab394;
-  border-color: #1ab394;
+  background: var(--primary);
+  /* border-color: var(--primary); */
 }
 
 .logo_name {
   font-size: 50px;
-  color: #1ab394;
+  color: var(--primary);
   margin: 20px auto 20px auto;
   width: 30%;
   letter-spacing: -10px;
@@ -60,8 +65,8 @@
 
 .login_form .login-form-button {
   display: block;
-  background: #1ab394;
-  border-color: #1ab394;
+  background: var(--primary);
+  /* border-color: var(--primary); */
   width: 100%;
 }
 
@@ -91,16 +96,24 @@
   align-items: center;
 }
 
+.register-in-spin .ant-spin-dot-item {
+  background: var(--primary);
+}
+
+.register-in-spin .ant-spin-text {
+  color: var(--primary);
+}
+
 .signin-title {
   font-size: 50px;
-  color: #477b71;
+  color: var(--primary-dim);
   margin: 20px auto 20px auto;
   width: 40%;
 }
 
 .register-title {
   font-size: 50px;
-  color: #477b71;
+  color: var(--primary-dim);
   margin: 20px auto 20px auto;
   width: 55%;
 }
@@ -127,7 +140,7 @@
     font-size: 60px;
     color: #e6e6e6;
     width: 40%;
-    color: #1ab394;
+    color: var(--primary);
     /* margin: 0 auto 20px auto; */
     margin: 0 auto;
     letter-spacing: -10px;
@@ -135,8 +148,8 @@
 
   .login_form .login-form-button {
     display: block;
-    background: #1ab394;
-    border-color: #1ab394;
+    background: var(--primary);
+    /* border-color: var(--primary); */
     width: 100%;
   }
 
@@ -188,13 +201,18 @@
   /* border-bottom: 2px solid red; */
 }
 
+.logo-svg {
+  width: 70px;
+  height: 70px;
+}
+
 .app_logo_search {
   margin-left: 20px;
 }
 
 .app_logo_search .app_header_logo {
   font-size: 40px;
-  color: #1ab394;
+  color: var(--primary);
   width: 50%;
   letter-spacing: -5px;
 }
@@ -207,7 +225,7 @@
 .app_header_menu > .ant-menu-item-selected a,
 .app_header_menu > .ant-menu-item a,
 .app_header_menu > .ant-menu-item a:hover {
-  color: #1ab394;
+  color: var(--primary);
 }
 
 .app_header_menu.ant-menu-horizontal:not(.ant-menu-dark)
@@ -218,10 +236,49 @@
 .app_header_menu.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:hover,
 .app_header_menu.ant-menu-horizontal:not(.ant-menu-dark)
   > .ant-menu-item:active {
-  border-bottom: 2px solid #1ab394;
+  border-bottom: 2px solid var(--primary);
 }
 
 /*** Componentes ***/
 
 .skeleton-css {
+}
+
+/**************************USER************************/
+
+.user_name {
+  display: inline-block;
+  font-size: 25px;
+  font-weight: 400;
+}
+
+
+h1.user_name.ant-typography {
+  font-size: 25px;
+  padding-top: 20px;
+  font-weight: 400;
+  width: 300px;
+}
+
+.user_column-2 {
+  margin-top: 20px;
+}
+
+.rating-column {
+  font-size: 14px;
+  color: #ffa811;
+  margin-left: 20px;
+}
+
+.review-text {
+  margin-left: 10px;
+}
+
+.user_name .ant-typography-edit {
+  color: var(--primary);
+  width: 10%;
+}
+
+.date_joined {
+ 
 }

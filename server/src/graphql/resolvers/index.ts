@@ -1,6 +1,7 @@
 import  merge from 'lodash.merge'
-import { registerResolver  } from './register'
-import { loginResolver  } from './login'
+import { registerResolver  } from './Register'
+import { loginResolver  } from './Login'
+import { userResolver } from './User'
 
-export const resolvers = merge(registerResolver, loginResolver)
+export const resolvers = merge(registerResolver, loginResolver, userResolver)
 

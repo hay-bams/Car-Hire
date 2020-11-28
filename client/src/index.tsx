@@ -73,7 +73,7 @@ const App = () => {
       <Layout>
         <AppHeaderSkeleton />
         <div className="launch-spinner">
-          <Spin tip="Launching Car Hire+" size="large"/>
+          <Spin tip="Launching Car Hire+" size="large" />
         </div>
       </Layout>
     );
@@ -103,7 +103,11 @@ const App = () => {
               <Register {...props} setUser={setUser} user={user} />
             )}
           />
-          <Route exact path="/user/:id" component={User} />
+          <Route
+            exact
+            path="/user/:id"
+            render={(props) => <User {...props} authUser={user} />}
+          />
           <Route component={NotFound} />
         </Switch>
       </Layout>

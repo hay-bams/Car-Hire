@@ -6,7 +6,7 @@ export const typeDefs = gql`
     avatar: String
     name: String
     hasWallet: Boolean
-    madeRequest: Boolean!
+    madeRequest: Boolean
     # authenticated: Boolean!
   }
 
@@ -32,11 +32,12 @@ export const typeDefs = gql`
   }
 
   type Query {
-    user: User!
+    user(id: ID!): User!
   }
 
   type Mutation {
     login(input: LoginInput): User!
     register(input: RegisterInput!): User!
+    logout: User!
   }
 `

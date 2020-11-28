@@ -1,4 +1,4 @@
-import { notification } from 'antd';
+import { message, notification } from 'antd';
 
 export const displaySccessNotification = (message: string, description?: string) => {
   notification['success']({
@@ -6,3 +6,7 @@ export const displaySccessNotification = (message: string, description?: string)
     description
   })
 }
+
+export const displayErrorMessage = (error: string) => {
+  return message.error(error);
+};

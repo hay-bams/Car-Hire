@@ -1,8 +1,9 @@
 import { IResolvers } from 'apollo-server-express';
 import bcrypt from 'bcrypt';
-import { Request, Response } from 'express';
-import { Database, RegisterBody, User } from '../../lib/types';
-import { setCookie } from '../../utils/setCookie';
+import { Response } from 'express';
+import { Database, RegisterBody, User } from '../../../lib/types';
+import { formatUser } from '../../../utils/formatUser';
+import { setCookie } from '../../../utils/setCookie';
 
 const userExist = async (db: Database, email: string) => {
   const user = await db.user.findOne({
@@ -36,28 +37,10 @@ export const registerResolver: IResolvers = {
         }
 
         setCookie(result._id, res);
-
-        return {
-          _id: result._id,
-          email: result.email,
-          avatar: result.avatar || 'https://via.placeholder.com/128',
-          walletId: result.walletId,
-          firstName: result.firstName,
-          lastName: result.lastName,
-          // authenticated: true
-        };
+        return formatUser(result)
       } catch (err) {
         throw new Error(`Something went wrong: ${err}`);
       }
     },
-  },
-  User: {
-    id: (user: User) => user._id,
-    name: (user: User) =>
-      user.firstName && user.lastName
-        ? `${user.firstName} ${user.lastName}`
-        : null,
-    hasWallet: (user: User) => (user.walletId ? true : false),
-    madeRequest: () => true,
   },
 };

@@ -1,7 +1,7 @@
 import { Response } from "express"
 import { ObjectID } from "mongodb"
 
-const cookieOptions = {
+export const cookieOptions = {
   httpOnly: true,
   sameSite: true,
   signed: true,
