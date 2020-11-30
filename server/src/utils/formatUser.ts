@@ -1,4 +1,4 @@
-import { User } from "../lib/types";
+import { User } from "../graphql/resolvers/User/types";
 
 export const formatUser = (user: User) => {
   return {
@@ -7,6 +7,7 @@ export const formatUser = (user: User) => {
     avatar: user.avatar || 'https://via.placeholder.com/128',
     firstName: user.firstName,
     lastName: user.lastName,
+    listings: user.listings
     // authenticated: true
   }; 
 }

@@ -21,11 +21,11 @@
 }
 
 .launch-spinner .ant-spin-dot-item {
-  background: var(--primary);
+  background: var(--primary-dim);
 }
 
 .launch-spinner .ant-spin-text {
-  color: var(--primary);
+  color: var(--primary-dim);
 }
 
 /*************************** LOGIN / REGISTER *******************************/
@@ -45,19 +45,19 @@
 
 .login_form .ant-input-affix-wrapper:hover,
 .login_form .ant-input-affix-wrapper-focused {
-  border: 1px solid var(--primary);
+  border: 1px solid var(--primary-dim);
   box-shadow: none;
 }
 
 .login_form .login-form-button:focus,
 .login-form-button:focus {
-  background: var(--primary);
-  /* border-color: var(--primary); */
+  background: var(--primary-dim);
+  /* border-color: var(--primary-dim); */
 }
 
 .logo_name {
   font-size: 50px;
-  color: var(--primary);
+  color: var(--primary-dim);
   margin: 20px auto 20px auto;
   width: 30%;
   letter-spacing: -10px;
@@ -65,8 +65,8 @@
 
 .login_form .login-form-button {
   display: block;
-  background: var(--primary);
-  /* border-color: var(--primary); */
+  background: var(--primary-dim);
+  /* border-color: var(--primary-dim); */
   width: 100%;
 }
 
@@ -97,15 +97,15 @@
 }
 
 .register-in-spin .ant-spin-dot-item {
-  background: var(--primary);
+  background: var(--primary-dim);
 }
 
 .register-in-spin .ant-spin-text {
-  color: var(--primary);
+  color: var(--primary-dim);
 }
 
 .signin-title {
-  font-size: 50px;
+  font-size: 40px;
   color: var(--primary-dim);
   margin: 20px auto 20px auto;
   width: 40%;
@@ -140,7 +140,7 @@
     font-size: 60px;
     color: #e6e6e6;
     width: 40%;
-    color: var(--primary);
+    color: var(--primary-dim);
     /* margin: 0 auto 20px auto; */
     margin: 0 auto;
     letter-spacing: -10px;
@@ -148,8 +148,8 @@
 
   .login_form .login-form-button {
     display: block;
-    background: var(--primary);
-    /* border-color: var(--primary); */
+    background: var(--primary-dim);
+    /* border-color: var(--primary-dim); */
     width: 100%;
   }
 
@@ -212,7 +212,7 @@
 
 .app_logo_search .app_header_logo {
   font-size: 40px;
-  color: var(--primary);
+  color: var(--primary-dim);
   width: 50%;
   letter-spacing: -5px;
 }
@@ -222,10 +222,8 @@
   margin-right: 20px;
 }
 
-.app_header_menu > .ant-menu-item-selected a,
-.app_header_menu > .ant-menu-item a,
 .app_header_menu > .ant-menu-item a:hover {
-  color: var(--primary);
+  color: var(--primary-dim);
 }
 
 .app_header_menu.ant-menu-horizontal:not(.ant-menu-dark)
@@ -236,7 +234,11 @@
 .app_header_menu.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:hover,
 .app_header_menu.ant-menu-horizontal:not(.ant-menu-dark)
   > .ant-menu-item:active {
-  border-bottom: 2px solid var(--primary);
+  border-bottom: 2px solid var(--primary-dim);
+}
+
+.app_header_menu .ant-btn-primary {
+  background: var(--primary-dim);
 }
 
 /*** Componentes ***/
@@ -275,10 +277,50 @@ h1.user_name.ant-typography {
 }
 
 .user_name .ant-typography-edit {
-  color: var(--primary);
+  color: var(--primary-dim);
   width: 10%;
 }
 
 .date_joined {
  
 }
+
+@media only screen and (max-width: 450px) { 
+  .user_name {
+    font-size: 15px;
+  }
+
+  .rating-column {
+    font-size: 10px;
+    color: #ffa811;
+    margin-left: 0;
+  }
+
+  .profile_details_2 {
+    font-size: 11px;
+  }
+
+  .date_joined{
+    font-size: 11px;
+  }
+
+  .sex_profile{
+    font-size: 11px;
+  }
+
+  .age_profile{
+    font-size: 11px;
+  }
+
+  .small-avatar {
+    border: 2px solid red;
+    width: 100px !important;
+    margin: 0 auto !important;
+  }
+
+  /* .small-avatar.ant-avatar > img {
+    margin-left: 20px;
+  } */
+  
+}
+

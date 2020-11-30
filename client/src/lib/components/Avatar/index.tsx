@@ -14,6 +14,7 @@ interface Props {
   name: string | null;
   size?: number | 'small' | 'large' | otherSizes;
   src?: string | null;
+  className?: string
 }
 
 const colors = [
@@ -48,7 +49,7 @@ const colors = [
   '#6666FF',
 ];
 
-export const UserAvatar = ({ name, size, src }: Props) => {
+export const UserAvatar = ({ name, size, src, className }: Props) => {
   const getAlphebetPosition = (letter: string): number => {
     const code = letter.toUpperCase().charCodeAt(0);
     if (code > 64 && code < 91) {
@@ -64,6 +65,7 @@ export const UserAvatar = ({ name, size, src }: Props) => {
       <Avatar
         src={src}
         size={size}
+        className={className}
         style={
           !src
             ? { backgroundColor: AvatarColor, verticalAlign: 'middle' }

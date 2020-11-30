@@ -1,26 +1,9 @@
-import { Collection, ObjectID } from "mongodb";
-
-export interface UserArgs {
-  id: string
-}
-
-export interface User {
-  _id?: ObjectID;
-  email?: string;
-  password?: string;
-  firstName?:  string;
-  avatar?: string;
-  lastName?: string;
-  walletId?: string
-  authenticated?: boolean,
-}
+import { Collection, ObjectId } from "mongodb";
+import { User } from "../graphql/resolvers/User/types";
 
 export interface Database {
-  user: Collection<User> 
-}
-
-export interface userArgs {
-  id: string
+  user: Collection<User>,
+  listings: Collection<Listing>
 }
 
 export interface Loginbody {
@@ -34,4 +17,22 @@ export interface RegisterBody {
   password: string;
   firstName:  string;
   lastName: string
+}
+
+export enum ListingType {
+  SUV = "SUV",
+  SEDAN = "SEDAN",
+  VAN = "VAN",
+  CONVERTIBLE = "CONVERTIBLE"
+}
+
+export interface Listing {
+  _id: ObjectId,
+  name: string,
+  seats: number,
+  type: ListingType,
+  price: number,
+  city: string,
+  image: string,
+  host: ObjectId
 }

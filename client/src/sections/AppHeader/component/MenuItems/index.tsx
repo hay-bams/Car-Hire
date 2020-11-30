@@ -1,8 +1,8 @@
 import React from 'react';
-import { Menu } from 'antd';
+import { Button, Menu } from 'antd';
 import { useMutation } from '@apollo/client';
 import { User } from '../../../../lib/types';
-import { UserOutlined, LogoutOutlined } from '@ant-design/icons';
+import { UserOutlined, LogoutOutlined, CarOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { UserAvatar } from '../../../../lib/components';
 import { LOG_OUT } from '../../../../lib/graphql';
@@ -44,15 +44,15 @@ export const MenuItems = ({ user, setUser }: Props) => {
       defaultSelectedKeys={['1']}
       className="app_header_menu"
     >
+       <Menu.Item key="6">
+            <Link to="/host"><CarOutlined />Be a Host</Link>
+          </Menu.Item>
       {!user.id ? (
         <>
           <Menu.Item key="1">
-            <Link to="/login">Signin</Link>
+            <Link to="/login"><Button type="primary">Sign In</Button></Link>
           </Menu.Item>
 
-          <Menu.Item key="4">
-            <Link to="/register">Register</Link>
-          </Menu.Item>
         </>
       ) : null}
 

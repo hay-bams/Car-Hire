@@ -1,5 +1,6 @@
 import { MongoClient } from 'mongodb'
-import { Database, User } from '../lib/types';
+import { User } from '../graphql/resolvers/User/types';
+import { Database, Listing } from '../lib/types';
 
 const MONGO_LOCAL_URI='mongodb://localhost:27017'
 export const connectDatabase = async (): Promise<Database> => {
@@ -10,6 +11,7 @@ export const connectDatabase = async (): Promise<Database> => {
   const db = client.db('car');
 
   return {
-    user: db.collection<User>('user')
+    user: db.collection<User>('user'),
+    listings: db.collection<Listing>('listings')
   };
 };

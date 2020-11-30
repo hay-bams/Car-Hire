@@ -1,13 +1,37 @@
 import { gql } from "apollo-server-express";
 
 export const typeDefs = gql`
+  enum ListingType {
+    SUV
+    SEDAN
+    VAN
+    CONVERTIBLE
+  }
+
   type User {
     id: ID
     avatar: String
     name: String
     hasWallet: Boolean
     madeRequest: Boolean
+    listings(page: Int!, limit: Int!): Listings! 
     # authenticated: Boolean!
+  }
+
+  type Listings {
+    total: Int!
+    result: [Listing]
+  }
+
+  type Listing {
+    id: ID!
+    name: String
+    seats: Int!
+    type: ListingType!
+    price: Int!
+    city: String!
+    image: String!
+    host: User!
   }
 
   # type Viewer {

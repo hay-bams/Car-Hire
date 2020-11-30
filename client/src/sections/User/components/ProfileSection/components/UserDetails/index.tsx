@@ -21,9 +21,10 @@ export const UserDetails = ({ user }: Props) => {
         <Row gutter={16}>
           <Col xs={24} lg={3}>
             <UserAvatar
+              className="small-avatar"
               src={user.avatar}
               name={user.name}
-              size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
+              size={{ xs: 100, sm: 32, md: 100, lg: 64, xl: 80, xxl: 100 }}
             />
           </Col>
           <Col className="user_column-2">
@@ -51,11 +52,11 @@ export const UserDetails = ({ user }: Props) => {
               </Col>
               <Col>
                 {' '}
-                <Text className="date_joined"> Male</Text>
+                <Text className="sex_profile"> Male</Text>
               </Col>
               <Col>
                 {' '}
-                <Text className="date_joined"> 29 years old</Text>
+                <Text className="age_profile"> 29 years old</Text>
               </Col>
             </Row>
           </Col>

@@ -2,9 +2,10 @@ import { IResolvers } from 'apollo-server-express';
 import { Request, Response } from 'express';
 import { ObjectID } from 'mongodb';
 import bcrypt from 'bcrypt';
-import { Database, User, Loginbody } from '../../../lib/types';
+import { Database, Loginbody } from '../../../lib/types';
 import { setCookie } from '../../../utils/setCookie';
 import { formatUser } from '../../../utils/formatUser';
+import { User } from '../User/types';
 
 const loginViaCookie = async (db: Database, req: Request, res: Response) => {
   const result = await db.user.findOne({
@@ -38,7 +39,9 @@ export const loginResolver: IResolvers = {
         }
 
         if (!result) {
-          throw new Error('User does not exist, Please confirm your email is correct or signup');
+          throw new Error(
+            'User does not exist, Please confirm your email is correct or signup'
+          );
         }
 
         if (!input.withCookie) {
@@ -46,6 +49,7 @@ export const loginResolver: IResolvers = {
             input.password,
             result.password ? result.password : ''
           );
+
           if (!match)
             throw new Error(
               'Wrong Password, Please Try again with the correct password'
@@ -53,7 +57,8 @@ export const loginResolver: IResolvers = {
         }
 
         setCookie(result._id, res);
-        return formatUser(result)
+
+        return formatUser(result);
       } catch (err) {
         throw new Error(`Something went wrong: ${err}`);
       }

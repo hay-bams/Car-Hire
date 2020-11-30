@@ -1,9 +1,10 @@
 import { IResolvers } from 'apollo-server-express';
 import bcrypt from 'bcrypt';
 import { Response } from 'express';
-import { Database, RegisterBody, User } from '../../../lib/types';
+import { Database, RegisterBody } from '../../../lib/types';
 import { formatUser } from '../../../utils/formatUser';
 import { setCookie } from '../../../utils/setCookie';
+import { User } from '../User/types';
 
 const userExist = async (db: Database, email: string) => {
   const user = await db.user.findOne({
@@ -26,8 +27,11 @@ export const registerResolver: IResolvers = {
     ): Promise<User> => {
       try {
         const user = await userExist(db, input.email);
+
         if (user) throw new Error('user already exists');
+
         const hashedPassword = await bcrypt.hash(input.password, 10);
+
         const result = await (
           await db.user.insertOne({ ...input, password: hashedPassword })
         ).ops[0];
@@ -37,6 +41,7 @@ export const registerResolver: IResolvers = {
         }
 
         setCookie(result._id, res);
+
         return formatUser(result)
       } catch (err) {
         throw new Error(`Something went wrong: ${err}`);
