@@ -16,9 +16,9 @@ export const AppHeader = ({ user, setUser }: Props) => {
     <Header className="app_header">
       <Link to="/">
         <div className="app_logo_search">
-          <h1 className="app_header_logo">
+          <div className="app_header_logo">
             <h1 className="app_header_logo">CAR+</h1>
-          </h1>
+          </div>
         </div>
       </Link>
       <div className="menu_items">

@@ -1,35 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { UserDashboard } from './components/UserDashboard';
 import { useQuery } from '@apollo/client';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { USER } from '../../lib/graphql';
-import {  User as UserData, UserVariables } from '../../lib/graphql/queries/User/__generated__/User'
+import {
+  User as UserData,
+  UserVariables,
+} from '../../lib/graphql/queries/User/__generated__/User';
 import { User as UserType } from '../../lib/types';
 
 interface MatchParams {
-  id: string
+  id: string;
 }
 
 interface Props {
-  authUser: UserType
+  authUser: UserType;
 }
 
-export const User = ({ match, authUser }: Props & RouteComponentProps<MatchParams>) => {
+const LIMIT = 4;
+
+export const User = ({
+  match,
+  authUser,
+}: Props & RouteComponentProps<MatchParams>) => {
+  const [listingPage, setListingPage] = useState(1);
   const { data, error, loading } = useQuery<UserData, UserVariables>(USER, {
     variables: {
-      id: match.params.id
-    }
+      id: match.params.id,
+      page: listingPage,
+      limit: LIMIT,
+    },
   });
 
-  if(!authUser.id) {
-    return <Redirect to="/login" />
+  if (!authUser.id) {
+    return <Redirect to="/login" />;
   }
 
-   const user = data && data.user ? data.user: null
-   const UserDashboardElement = user ? <UserDashboard  user={user} /> : null
-  return (
-    <>
-      {UserDashboardElement}
-    </>
-  );
+  const user = data && data.user ? data.user : null;
+  const UserDashboardElement = user ? (
+    <UserDashboard
+      user={user}
+      limit={LIMIT}
+      listingPage={listingPage}
+      setListingPage={setListingPage}
+    />
+  ) : null;
+  return <>{UserDashboardElement}</>;
 };

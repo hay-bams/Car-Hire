@@ -30,6 +30,7 @@ export interface Listing {
   _id: ObjectId,
   name: string,
   seats: number,
+  description: string,
   type: ListingType,
   price: number,
   city: string,

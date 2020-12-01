@@ -37,7 +37,7 @@ export const UserDetails = ({ user }: Props) => {
             />
             <Row gutter={16}>
               <Col className="profile_details_2">
-                <Text>
+                <Text className="location_based">
                   {' '}
                   <EnvironmentOutlined style={{ color: '#1890ff' }} /> Lagos,
                   Nigeria

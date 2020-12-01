@@ -7,6 +7,13 @@
 // START Enums and Input Objects
 //==============================================================
 
+export enum ListingType {
+  CONVERTIBLE = "CONVERTIBLE",
+  SEDAN = "SEDAN",
+  SUV = "SUV",
+  VAN = "VAN",
+}
+
 export interface LoginInput {
   email?: string | null;
   password?: string | null;

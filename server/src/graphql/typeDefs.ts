@@ -27,6 +27,7 @@ export const typeDefs = gql`
     id: ID!
     name: String
     seats: Int!
+    description: String
     type: ListingType!
     price: Int!
     city: String!

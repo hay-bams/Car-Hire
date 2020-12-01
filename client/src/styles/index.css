@@ -2,13 +2,27 @@
 
 :root {
   --primary: #1ab394;
-  --primary-dim: #477b71
+  --primary-dim: #477b71;
+  --primary-dimmer: #035d4d;
+  --title-color: #676a6c;  
+  --text-color: #676a6c; 
+    /* --title-color: #035d4d;
+  --text-color: #738a86; */ 
 }
 
 /****************************** App ********************************/
 .app {
-  background: #fff;
   min-height: 100vh;
+  background: #fff;
+}
+
+.app.ant-layout {
+  /* background: #f3f3f4; */
+  /* #f3f3f4 */
+}
+
+.dashboard_layout.ant-layout {
+  background: #f3f3f4;
 }
 
 .launch-spinner {
@@ -179,7 +193,7 @@
     margin: 0 auto 20px auto;
     width: 40%;
   }
-  
+
   .register-title {
     font-size: 50px;
     color: #477b71;
@@ -252,14 +266,28 @@
   display: inline-block;
   font-size: 25px;
   font-weight: 400;
+  color: var(--title-color);
+  /* color: #000000a6; */
 }
 
+.profile_details_2 {
+  color: var(--text-color);
+}
 
-h1.user_name.ant-typography {
-  font-size: 25px;
-  padding-top: 20px;
-  font-weight: 400;
-  width: 300px;
+.date_joined {
+  color: var(--text-color);
+}
+
+.sex_profile {
+  color: var(--text-color);
+}
+
+.age_profile {
+  color: var(--text-color);
+}
+
+.location_based {
+  color: var(--text-color);
 }
 
 .user_column-2 {
@@ -281,11 +309,41 @@ h1.user_name.ant-typography {
   width: 10%;
 }
 
-.date_joined {
- 
+.user_active_listing.ant-typography {
+  font-weight: 500;
+  color: var(--title-color);
 }
 
-@media only screen and (max-width: 450px) { 
+.user_listing {
+  margin-left: 25px;
+}
+
+.user_listing_pagination {
+  margin-bottom: 15px;
+  width: 98%;
+  display: flex;
+  justify-content: flex-end;
+  color: var(--text-color);
+}
+
+.user_listing .ant-pagination {
+  margin-bottom: 15px;
+}
+
+.user_listing,
+.user_listing .ant-pagination-item-active a:hover,
+.user_listing .ant-pagination-item-active,
+.user_listing .ant-pagination-item:hover,
+.user_listing .ant-pagination-item-link:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+.user_listing .ant-pagination-item a {
+  color: var(--text-color);
+}
+
+@media only screen and (max-width: 450px) {
   .user_name {
     font-size: 15px;
   }
@@ -300,27 +358,46 @@ h1.user_name.ant-typography {
     font-size: 11px;
   }
 
-  .date_joined{
+  .date_joined {
     font-size: 11px;
   }
 
-  .sex_profile{
+  .sex_profile {
     font-size: 11px;
   }
 
-  .age_profile{
+  .age_profile {
     font-size: 11px;
   }
 
   .small-avatar {
-    border: 2px solid red;
     width: 100px !important;
     margin: 0 auto !important;
   }
-
-  /* .small-avatar.ant-avatar > img {
-    margin-left: 20px;
-  } */
-  
 }
 
+/**********************LISTING  CARD *********************/
+.listing_card_title.ant-typography {
+  font-weight: 500;
+  color: var(--primary-dimmer);
+}
+
+.user_listing {
+  width: 97%;
+}
+
+@media only screen and (max-width: 450px) {
+  .user_listing {
+    width: 80%;
+  }
+
+  .user_active_listing.ant-typography {
+    font-size: 20px;
+  }
+}
+
+
+
+/* .listing_card_title span {
+  color: gray
+} */
