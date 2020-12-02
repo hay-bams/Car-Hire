@@ -15,6 +15,7 @@ export const typeDefs = gql`
     hasWallet: Boolean
     madeRequest: Boolean
     listings(page: Int!, limit: Int!): Listings! 
+    bookings(page: Int!, limit: Int!): Bookings!
     # authenticated: Boolean!
   }
 
@@ -29,10 +30,23 @@ export const typeDefs = gql`
     seats: Int!
     description: String
     type: ListingType!
-    price: Int!
     city: String!
+    price: Int!
     image: String!
     host: User!
+  }
+
+  type Booking {
+    id: ID!
+    listing: Listing!
+    renter: User!
+    startDay: String!
+    endDay: String!
+  }
+
+  type Bookings {
+    total: Int!
+    result: [Booking!]!
   }
 
   # type Viewer {

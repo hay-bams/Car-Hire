@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb';
 import { connectDatabase } from '../src/database';
 import { User } from '../src/graphql/resolvers/User/types';
-import { Listing, ListingType } from '../src/lib/types';
+import { Booking, Listing, ListingType } from '../src/lib/types';
 
 const users: User[] = [
   {
@@ -13,6 +13,7 @@ const users: User[] = [
     lastName: 'Adelakun',
     walletId: 'acct_************',
     authenticated: false,
+    bookings: [],
     listings: [
       new ObjectId('5d378db94e84753160e08b31'),
       new ObjectId('5d378db94e84753160e08b41'),
@@ -28,6 +29,13 @@ const users: User[] = [
     lastName: 'Dike',
     walletId: 'acct_************',
     authenticated: false,
+    bookings: [
+      new ObjectId('5fc78ac4494ba3b7e049e586'),
+      new ObjectId('5fc78acee4f8c8aaf65821b6'),
+      new ObjectId('5fc78ad4d4c39b1f8abeba75'),
+      new ObjectId('5fc78adbba61a3d2fb7c06e2'),
+      new ObjectId('5fc78ae47fbd8cb082c36b77')
+    ],
     listings: [
       new ObjectId('5d378db94e84753160e08b37'),
       new ObjectId('5d378db94e84753160e08b38'),
@@ -36,7 +44,7 @@ const users: User[] = [
       new ObjectId('5d378db94e84753160e08b3d'),
       new ObjectId('5d378db94e84753160e08b43'),
       new ObjectId('5d378db94e84753160e08b50'),
-    ],
+    ]
   },
   {
     _id: new ObjectId('5d378db94e84753160e08b57'),
@@ -47,6 +55,7 @@ const users: User[] = [
     lastName: 'Dike',
     walletId: 'acct_************',
     authenticated: false,
+    bookings: [],
     listings: [
       new ObjectId('5d378db94e84753160e08b53'),
       new ObjectId('5d378db94e84753160e08b54'),
@@ -189,6 +198,44 @@ const listings: Listing[] = [
   },
 ];
 
+const bookings: Booking[] = [
+    {
+      _id: new ObjectId('5fc78ac4494ba3b7e049e586'),
+      renter: new ObjectId('5d378db94e84753160e08b56'),
+      listing: new ObjectId('5d378db94e84753160e08b31'),
+      startDay: 'some date',
+      endDay: 'some date'
+    },
+    {
+      _id: new ObjectId('5fc78acee4f8c8aaf65821b6'),
+      renter: new ObjectId('5d378db94e84753160e08b56'),
+      listing: new ObjectId('5d378db94e84753160e08b41'),
+      startDay: 'some date',
+      endDay: 'some date'
+    },
+    {
+      _id: new ObjectId('5fc78ad4d4c39b1f8abeba75'),
+      renter: new ObjectId('5d378db94e84753160e08b56'),
+      listing: new ObjectId('5d378db94e84753160e08b4c'),
+      startDay: 'some date',
+      endDay: 'some date'
+    },
+    {
+      _id: new ObjectId('5fc78adbba61a3d2fb7c06e2'),
+      renter: new ObjectId('5d378db94e84753160e08b56'),
+      listing: new ObjectId('5d378db94e84753160e08b53'),
+      startDay: 'some date',
+      endDay: 'some date'
+    },
+    {
+      _id: new ObjectId('5fc78ae47fbd8cb082c36b77'),
+      renter: new ObjectId('5d378db94e84753160e08b56'),
+      listing: new ObjectId('5d378db94e84753160e08b54'),
+      startDay: 'some date',
+      endDay: 'some date'
+    },
+]
+
 export const seed = async () => {
   console.log('Seed is running...');
   const db = await connectDatabase();
@@ -199,6 +246,10 @@ export const seed = async () => {
 
   for (const user of users) {
     await db.user.insertOne(user);
+  }
+
+  for (const booking of bookings) {
+    await db.bookings.insertOne(booking);
   }
 
   console.log('Done...');

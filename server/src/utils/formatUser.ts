@@ -7,7 +7,8 @@ export const formatUser = (user: User) => {
     avatar: user.avatar || 'https://via.placeholder.com/128',
     firstName: user.firstName,
     lastName: user.lastName,
-    listings: user.listings
+    listings: user.listings,
+    bookings: user.bookings
     // authenticated: true
   }; 
 }

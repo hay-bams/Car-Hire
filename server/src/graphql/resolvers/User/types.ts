@@ -1,25 +1,36 @@
-import { ObjectId } from "mongodb";
-import { Listing } from "../../../lib/types";
+import { ObjectId } from 'mongodb';
+import { Listing, Booking } from '../../../lib/types';
 
 export interface UserArgs {
-  id: string
+  id: string;
 }
 
 export interface User {
   _id?: ObjectId;
   email?: string;
   password?: string;
-  firstName?:  string;
+  firstName?: string;
   avatar?: string;
   lastName?: string;
-  walletId?: string
-  authenticated?: boolean,
-  listings?: ObjectId[]
+  walletId?: string;
+  authenticated?: boolean;
+  listings?: ObjectId[];
+  bookings?: ObjectId[];
 }
 
 export interface UserListingData {
-  total: number,
-  result: Listing[]
+  total: number;
+  result: Listing[];
+}
+
+export interface UserBookingData {
+  total: number;
+  result: Booking[];
+}
+
+export interface UserBookingArgs {
+  page: number;
+  limit: number;
 }
 
 export interface UserListingArgs {

@@ -4,7 +4,7 @@ import { ObjectID } from 'mongodb';
 import { Database } from '../../../lib/types';
 import { formatUser } from '../../../utils/formatUser';
 import { cookieOptions } from '../../../utils/setCookie';
-import { User, UserArgs, UserListingArgs, UserListingData } from './types';
+import { User, UserArgs, UserBookingArgs, UserBookingData, UserListingArgs, UserListingData } from './types';
 
 export const userResolver: IResolvers = {
   Query: {
@@ -69,5 +69,29 @@ export const userResolver: IResolvers = {
 
       return data;
     },
+    bookings: async (
+      user: User,
+      { page, limit }: UserBookingArgs,
+      { db }: { db: Database }
+    ) => {
+      const data: UserBookingData = {
+        total: 0,
+        result: []
+      };
+
+      // console.log(user)
+
+      let cursor = await db.bookings.find({
+        _id: { $in: user.bookings },
+      });
+
+      cursor = cursor.skip(page > 0 ? (page-1) * limit : 0);
+      cursor = cursor.limit(limit);
+
+      data.total = await cursor.count();
+      data.result = await cursor.toArray();
+
+      return data;
+    }
   },
 };
