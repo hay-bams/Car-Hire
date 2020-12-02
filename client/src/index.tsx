@@ -31,7 +31,7 @@ import { AppHeaderSkeleton, ErrorBanner } from './lib/components';
 import { Spin } from 'antd';
 
 const cache = new InMemoryCache();
-const client = new ApolloClient({
+export const client = new ApolloClient({
   uri: 'http://localhost:9003/api',
   cache,
   credentials: 'include',

@@ -8,6 +8,7 @@ import {
   UserVariables,
 } from '../../lib/graphql/queries/User/__generated__/User';
 import { User as UserType } from '../../lib/types';
+import { UserSkeleton } from './components/UserPageSkeleton';
 
 interface MatchParams {
   id: string;
@@ -24,13 +25,19 @@ export const User = ({
   authUser,
 }: Props & RouteComponentProps<MatchParams>) => {
   const [listingPage, setListingPage] = useState(1);
+  const [bookingPage, setBookingPage] = useState(1);
   const { data, error, loading } = useQuery<UserData, UserVariables>(USER, {
     variables: {
       id: match.params.id,
-      page: listingPage,
+      listingPage,
+      bookingPage,
       limit: LIMIT,
     },
   });
+  
+  if(loading) {
+   return  <UserSkeleton />
+  }
 
   if (!authUser.id) {
     return <Redirect to="/login" />;
@@ -40,7 +47,11 @@ export const User = ({
   const UserDashboardElement = user ? (
     <UserDashboard
       user={user}
+      // loading={loading}
+      pageParams={match.params.id}
       limit={LIMIT}
+      bookingPage={bookingPage}
+      setBookingPage={setBookingPage}
       listingPage={listingPage}
       setListingPage={setListingPage}
     />

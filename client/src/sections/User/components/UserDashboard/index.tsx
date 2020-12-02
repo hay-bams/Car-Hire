@@ -1,14 +1,18 @@
 import React from 'react';
-import { Layout, Row, Typography, Pagination, Col } from 'antd';
+import { Layout, Typography, } from 'antd';
 import { ProfileSection } from '../ProfileSection';
 import { Sidebar } from '../Sidebar';
 import { User } from '../../../../lib/graphql/queries/User/__generated__/User';
 import { UserListing } from '../UserListings';
+import { UserBookings } from '../UserBookings';
 interface Props {
   user: User['user'];
   limit: number;
   listingPage: number;
+  bookingPage: number;
+  setBookingPage: (page: number) => void;
   setListingPage: (page: number) => void;
+  pageParams: string
 }
 
 const { Title } = Typography;
@@ -16,10 +20,10 @@ const { Title } = Typography;
 export const UserDashboard = ({
   user,
   limit,
-  listingPage,
-  setListingPage,
+  pageParams
 }: Props) => {
   const listings = user.listings.result ? user.listings.result : null;
+  const bookings = user.bookings.result ? user.bookings.result : null;
 
   return (
     <Layout>
@@ -31,12 +35,23 @@ export const UserDashboard = ({
           <Title level={3} className="user_active_listing">
             Your Active Listings
           </Title>
+       
           <UserListing
-            listingPage={listingPage}
-            setListingPage={setListingPage}
             limit={limit}
             listings={listings}
             total={user.listings.total}
+            pageParams={pageParams}
+          />
+
+          <Title level={3} className="user_bookings">
+            Your Bookings
+          </Title>
+
+          <UserBookings
+            limit={limit}
+            bookings={bookings}
+            total={user.bookings.total}
+            pageParams={pageParams}
           />
         </div>
       </Layout>

@@ -1,4 +1,5 @@
 export * from './queries/User'
+export * from './queries/UserListing'
 export * from './mutations/Register'
 export * from './mutations/Login'
 export * from './mutations/Logout'

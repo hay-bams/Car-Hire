@@ -171,7 +171,7 @@ const listings: Listing[] = [
     type: ListingType.VAN,
     price: 117,
     city: 'London',
-    image: 'J.pgh',
+    image: 'J.jpg',
     host: new ObjectId('5d378db94e84753160e08b56'),
   },
   {

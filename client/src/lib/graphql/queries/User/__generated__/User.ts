@@ -27,12 +27,37 @@ export interface User_user_listings {
   result: (User_user_listings_result | null)[] | null;
 }
 
+export interface User_user_bookings_result_listing {
+  __typename: "Listing";
+  id: string;
+  name: string | null;
+  seats: number;
+  description: string | null;
+  type: ListingType;
+  price: number;
+  city: string;
+  image: string;
+}
+
+export interface User_user_bookings_result {
+  __typename: "Booking";
+  id: string;
+  listing: User_user_bookings_result_listing;
+}
+
+export interface User_user_bookings {
+  __typename: "Bookings";
+  total: number;
+  result: User_user_bookings_result[];
+}
+
 export interface User_user {
   __typename: "User";
   id: string | null;
   name: string | null;
   avatar: string | null;
   listings: User_user_listings;
+  bookings: User_user_bookings;
 }
 
 export interface User {
@@ -41,6 +66,7 @@ export interface User {
 
 export interface UserVariables {
   id: string;
-  page: number;
+  listingPage: number;
+  bookingPage: number;
   limit: number;
 }

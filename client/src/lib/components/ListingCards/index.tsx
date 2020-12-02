@@ -20,7 +20,7 @@ export const ListingCards = ({ style, listing, className }: Props) => {
       hoverable
       className={className}
       style={style ? style : {}}
-      cover={<img alt="example" src={listingImage} height={180} />}
+      cover={<img alt="listing" src={listingImage} height={180} />}
     >
       <div>
         <Title level={5} style={{ color: '#035d4d' }}>

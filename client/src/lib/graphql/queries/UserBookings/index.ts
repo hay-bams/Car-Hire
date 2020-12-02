@@ -1,24 +1,11 @@
 import { gql } from "@apollo/client";
 
-export const USER =  gql`
-  query User($id: ID!, $listingPage: Int!, $bookingPage: Int!,  $limit: Int!) {
+export const USER_BOOKING =  gql`
+  query UserBooking($id: ID!, $bookingPage: Int!,  $limit: Int!) {
     user(id: $id) {
       id
       name
       avatar
-      listings(page: $listingPage, limit: $limit) {
-        total
-        result {
-          id
-          name
-          seats
-          description
-          type
-          price
-          city
-          image
-        }
-      }
       bookings(page: $bookingPage, limit: $limit) {
         total
         result {
@@ -35,6 +22,7 @@ export const USER =  gql`
           }
         }
       }
+
     }
   }
 `
