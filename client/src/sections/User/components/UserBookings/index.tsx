@@ -1,6 +1,6 @@
-import { List } from 'antd';
 import React, { useState } from 'react';
-import { client } from '../../../..';
+import { List } from 'antd';
+import { useApolloClient } from '@apollo/client';
 import { ListingCards } from '../../../../lib/components';
 import { User as UserData, User_user_bookings } from '../../../../lib/graphql/queries/User/__generated__/User';
 import { USER_BOOKING } from '../../../../lib/graphql/queries/UserBookings';
@@ -20,6 +20,7 @@ export const UserBookings = ({
   limit,
   total,
 }: Props) => {
+  const client = useApolloClient()
   const [userBookings, setUserBookings] = useState(bookings);
   const [bookingPage, setbookingPage] = useState(1);
   const [loading, setLoading] = useState(false);

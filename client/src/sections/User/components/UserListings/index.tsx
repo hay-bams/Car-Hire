@@ -1,11 +1,11 @@
-import { List } from 'antd';
 import React, { useState } from 'react';
+import { List } from 'antd';
+import { useApolloClient } from '@apollo/client';
 import { ListingCards } from '../../../../lib/components';
 import {
   User as UserData,
   User_user_listings,
 } from '../../../../lib/graphql/queries/User/__generated__/User';
-import { client } from '../../../../index';
 import { USER_LISTING } from '../../../../lib/graphql/queries/UserListing';
 import { UserListingVariables } from '../../../../lib/graphql/queries/UserListing/__generated__/UserListing';
 import { UserListingSkeleton } from '../UserPageSkeleton/UserListingSkeleton';
@@ -18,6 +18,7 @@ interface Props {
 }
 
 export const UserListing = ({ pageParams, listings, limit, total }: Props) => {
+  const client = useApolloClient()
   const [userListings, setListings] = useState(listings);
   const [listingPage, setListingPage] = useState(1);
   const [loading, setLoading] = useState(false);
