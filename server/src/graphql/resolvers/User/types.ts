@@ -1,21 +1,7 @@
-import { ObjectId } from 'mongodb';
 import { Listing, Booking } from '../../../lib/types';
 
 export interface UserArgs {
   id: string;
-}
-
-export interface User {
-  _id?: ObjectId;
-  email?: string;
-  password?: string;
-  firstName?: string;
-  avatar?: string;
-  lastName?: string;
-  walletId?: string;
-  authenticated?: boolean;
-  listings?: ObjectId[];
-  bookings?: ObjectId[];
 }
 
 export interface UserListingData {

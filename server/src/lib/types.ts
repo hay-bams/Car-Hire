@@ -1,8 +1,7 @@
 import { Collection, ObjectId } from 'mongodb';
-import { User } from '../graphql/resolvers/User/types';
 
 export interface Database {
-  user: Collection<User>;
+  users: Collection<User>;
   listings: Collection<Listing>;
   bookings: Collection<Booking>;
 }
@@ -20,6 +19,19 @@ export interface RegisterBody {
   lastName: string;
 }
 
+export interface User {
+  _id?: ObjectId;
+  email?: string;
+  password?: string;
+  firstName?: string;
+  avatar?: string;
+  lastName?: string;
+  walletId?: string;
+  authenticated?: boolean;
+  listings?: ObjectId[];
+  bookings?: ObjectId[];
+}
+
 export enum ListingType {
   SUV = 'SUV',
   SEDAN = 'SEDAN',
@@ -35,6 +47,7 @@ export interface Listing {
   type: ListingType;
   price: number;
   city: string;
+  address: string;
   image: string;
   host: ObjectId;
 }

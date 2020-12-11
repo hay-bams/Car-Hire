@@ -10,7 +10,7 @@ const clear = async () => {
     const db = await connectDatabase();
 
     const listings = await db.listings.find({}).toArray();
-    const users = await db.user.find({}).toArray();
+    const users = await db.users.find({}).toArray();
     const bookings = await db.bookings.find({}).toArray();
 
     if (listings.length > 0) {
@@ -18,7 +18,7 @@ const clear = async () => {
     }
 
     if (users.length > 0) {
-      await db.user.drop();
+      await db.users.drop();
     }
 
     if (bookings.length > 0) {

@@ -1,7 +1,6 @@
 import { ObjectId } from 'mongodb';
 import { connectDatabase } from '../src/database';
-import { User } from '../src/graphql/resolvers/User/types';
-import { Booking, Listing, ListingType } from '../src/lib/types';
+import { Booking, Listing, ListingType, User } from '../src/lib/types';
 
 const users: User[] = [
   {
@@ -72,6 +71,7 @@ const listings: Listing[] = [
     type: ListingType.SUV,
     price: 993,
     city: 'London',
+    address: '73 Walwyn Rd, CHARLWOOD',
     image: 'A.jpg',
     host: new ObjectId('5d378db94e84753160e08b56'),
   },
@@ -83,6 +83,7 @@ const listings: Listing[] = [
     type: ListingType.SUV,
     price: 261,
     city: 'Toronto',
+    address: '500 Kingston Rd Toronto ON M4L 1V3',
     image: 'B.jpg',
     host: new ObjectId('5d378db94e84753160e08b56'),
   },
@@ -94,6 +95,7 @@ const listings: Listing[] = [
     type: ListingType.SEDAN,
     price: 206,
     city: 'Lagos',
+    address: 'Koko Street,Ogba',
     image: 'C.jpg',
     host: new ObjectId('5d378db94e84753160e08b56'),
   },
@@ -105,6 +107,7 @@ const listings: Listing[] = [
     type: ListingType.SEDAN,
     price: 193,
     city: 'London',
+    address: '7 Hertingfordbury Rd, NEWPORT',
     image: 'D.jpg',
     host: new ObjectId('5d378db94e84753160e08b55'),
   },
@@ -116,6 +119,7 @@ const listings: Listing[] = [
     price: 493,
     description: 'Leather Seats, Sunroof/MoonRoof, Fast, Backup Camera, Navigation System, Bluetooth, Blind Sport Monitoring, Third Row Seating',
     city: 'London',
+    address: '46 Uxbridge Road, SKIRBECK',
     image: 'E.jpg',
     host: new ObjectId('5d378db94e84753160e08b55'),
   },
@@ -127,6 +131,7 @@ const listings: Listing[] = [
     type: ListingType.SUV,
     price: 390,
     city: 'Toronto',
+    address: '26 Goodwood Park Cres East York ON M4C 2G5',
     image: 'F.jpg',
     host: new ObjectId('5d378db94e84753160e08b55'),
   },
@@ -138,6 +143,7 @@ const listings: Listing[] = [
     type: ListingType.VAN,
     price: 421,
     city: 'Lagos',
+    address: '12,Rasamond Street, Surulere',
     image: 'G.jpg',
     host: new ObjectId('5d378db94e84753160e08b56'),
   },
@@ -149,6 +155,7 @@ const listings: Listing[] = [
     type: ListingType.SUV,
     price: 901,
     city: 'Los Angeles',
+    address: '32010 La 43 Hwy, Albany, LA, 70711',
     image: 'H.jpg',
     host: new ObjectId('5d378db94e84753160e08b56'),
   },
@@ -160,6 +167,7 @@ const listings: Listing[] = [
     type: ListingType.SUV,
     price: 143,
     city: 'Los Angeles',
+    address: '29977 W Bates Rd, Hammond, LA, 70403',
     image: 'I.jpg',
     host: new ObjectId('5d378db94e84753160e08b56'),
   },
@@ -171,6 +179,7 @@ const listings: Listing[] = [
     type: ListingType.VAN,
     price: 117,
     city: 'London',
+    address: '35 Neville Street, ILSINGTON',
     image: 'J.jpg',
     host: new ObjectId('5d378db94e84753160e08b56'),
   },
@@ -182,6 +191,7 @@ const listings: Listing[] = [
     type: ListingType.CONVERTIBLE,
     price: 138,
     city: 'Dubai',
+    address: 'Box No. 55850',
     image: 'A.jpg',
     host: new ObjectId('5d378db94e84753160e08b57'),
   },
@@ -193,6 +203,7 @@ const listings: Listing[] = [
     type: ListingType.SUV,
     price: 256,
     city: 'London',
+    address: '26 Malcolm Rd, LLANFAIR',
     image: 'B.jpg',
     host: new ObjectId('5d378db94e84753160e08b57'),
   },
@@ -245,7 +256,7 @@ export const seed = async () => {
   }
 
   for (const user of users) {
-    await db.user.insertOne(user);
+    await db.users.insertOne(user);
   }
 
   for (const booking of bookings) {

@@ -1,4 +1,5 @@
-import { User } from "../graphql/resolvers/User/types";
+import { User } from "../lib/types";
+
 
 export const formatUser = (user: User) => {
   return {

@@ -2,13 +2,12 @@ import { IResolvers } from 'apollo-server-express';
 import { Request, Response } from 'express';
 import { ObjectID } from 'mongodb';
 import bcrypt from 'bcrypt';
-import { Database, Loginbody } from '../../../lib/types';
+import { Database, Loginbody, User } from '../../../lib/types';
 import { setCookie } from '../../../utils/setCookie';
 import { formatUser } from '../../../utils/formatUser';
-import { User } from '../User/types';
 
 const loginViaCookie = async (db: Database, req: Request, res: Response) => {
-  const result = await db.user.findOne({
+  const result = await db.users.findOne({
     _id: new ObjectID(req.signedCookies.user),
   });
 
@@ -30,7 +29,7 @@ export const loginResolver: IResolvers = {
       try {
         const result = input.withCookie
           ? await loginViaCookie(db, req, res)
-          : await db.user.findOne<User>({
+          : await db.users.findOne<User>({
               email: input.email,
             });
 

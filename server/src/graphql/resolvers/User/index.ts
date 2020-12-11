@@ -1,10 +1,10 @@
 import { IResolvers } from 'apollo-server-express';
 import { Response } from 'express';
 import { ObjectID } from 'mongodb';
-import { Database } from '../../../lib/types';
+import { Database, User } from '../../../lib/types';
 import { formatUser } from '../../../utils/formatUser';
 import { cookieOptions } from '../../../utils/setCookie';
-import { User, UserArgs, UserBookingArgs, UserBookingData, UserListingArgs, UserListingData } from './types';
+import {  UserArgs, UserBookingArgs, UserBookingData, UserListingArgs, UserListingData } from './types';
 
 export const userResolver: IResolvers = {
   Query: {
@@ -14,7 +14,7 @@ export const userResolver: IResolvers = {
       { db }: { db: Database }
     ): Promise<User> => {
       try {
-        const user = await db.user.findOne({
+        const user = await db.users.findOne({
           _id: new ObjectID(id),
         });
 
@@ -29,7 +29,7 @@ export const userResolver: IResolvers = {
     },
   },
   Mutation: {
-    logout: (_root: undefined, args: {}, { res }: { res: Response }) => {
+    logout: (_root: undefined, _, { res }: { res: Response }) => {
       try {
         res.clearCookie('user', cookieOptions);
 

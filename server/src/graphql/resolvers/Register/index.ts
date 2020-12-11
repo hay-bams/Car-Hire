@@ -1,13 +1,13 @@
 import { IResolvers } from 'apollo-server-express';
 import bcrypt from 'bcrypt';
 import { Response } from 'express';
-import { Database, RegisterBody } from '../../../lib/types';
+import { Database, RegisterBody, User } from '../../../lib/types';
 import { formatUser } from '../../../utils/formatUser';
 import { setCookie } from '../../../utils/setCookie';
-import { User } from '../User/types';
+
 
 const userExist = async (db: Database, email: string) => {
-  const user = await db.user.findOne({
+  const user = await db.users.findOne({
     email,
   });
 
@@ -33,7 +33,7 @@ export const registerResolver: IResolvers = {
         const hashedPassword = await bcrypt.hash(input.password, 10);
 
         const result = await (
-          await db.user.insertOne({ ...input, password: hashedPassword })
+          await db.users.insertOne({ ...input, password: hashedPassword })
         ).ops[0];
 
         if (!result) {

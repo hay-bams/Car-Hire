@@ -9,6 +9,7 @@ import {
 import { USER_LISTING } from '../../../../lib/graphql/queries/UserListing';
 import { UserListingVariables } from '../../../../lib/graphql/queries/UserListing/__generated__/UserListing';
 import { UserListingSkeleton } from '../UserPageSkeleton/UserListingSkeleton';
+import { Link } from 'react-router-dom';
 
 interface Props {
   listings: User_user_listings['result'];
@@ -18,7 +19,7 @@ interface Props {
 }
 
 export const UserListing = ({ pageParams, listings, limit, total }: Props) => {
-  const client = useApolloClient()
+  const client = useApolloClient();
   const [userListings, setListings] = useState(listings);
   const [listingPage, setListingPage] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -64,7 +65,9 @@ export const UserListing = ({ pageParams, listings, limit, total }: Props) => {
       }}
       renderItem={(userListing) => (
         <List.Item>
-          <ListingCards listing={userListing} />
+          <Link to={`/listing/${userListing ? userListing.id : ''}`}>
+            <ListingCards listing={userListing} />
+          </Link>
         </List.Item>
       )}
     />

@@ -13,6 +13,7 @@
 /****************************** App ********************************/
 .app {
   min-height: 100vh;
+  /* background: #f3f3f4; */
   background: #fff;
 }
 
@@ -406,6 +407,18 @@
   .user_active_listing.ant-typography {
     font-size: 20px;
   }
+}
+
+
+
+/************************* LISTING *************************/
+.listing-details-content-area {
+  margin: 65px auto 60px auto;
+  width: 85%;
+}
+
+.booking_column {
+  
 }
 
 
