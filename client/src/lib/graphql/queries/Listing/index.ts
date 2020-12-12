@@ -10,6 +10,7 @@ export const LISTING = gql`
       type
       city
       address
+      bookingsIndex
       price
       image
       host {

@@ -33,7 +33,7 @@ const users: User[] = [
       new ObjectId('5fc78acee4f8c8aaf65821b6'),
       new ObjectId('5fc78ad4d4c39b1f8abeba75'),
       new ObjectId('5fc78adbba61a3d2fb7c06e2'),
-      new ObjectId('5fc78ae47fbd8cb082c36b77')
+      new ObjectId('5fc78ae47fbd8cb082c36b77'),
     ],
     listings: [
       new ObjectId('5d378db94e84753160e08b37'),
@@ -43,7 +43,7 @@ const users: User[] = [
       new ObjectId('5d378db94e84753160e08b3d'),
       new ObjectId('5d378db94e84753160e08b43'),
       new ObjectId('5d378db94e84753160e08b50'),
-    ]
+    ],
   },
   {
     _id: new ObjectId('5d378db94e84753160e08b57'),
@@ -67,36 +67,45 @@ const listings: Listing[] = [
     _id: new ObjectId('5d378db94e84753160e08b3d'),
     name: 'Makari777',
     seats: 4,
-    description: 'Leather Seats, Sunroof/MoonRoof, Heated Seats, Fast, Backup Camera, Navigation System, Remote Start, Bluetooth, Blind Sport Monitoring, Third Row Seating, Apple CarPlay/Android Auto',
+    description:
+      'Leather Seats, Sunroof/MoonRoof, Heated Seats, Fast, Backup Camera, Navigation System, Remote Start, Bluetooth, Blind Sport Monitoring, Third Row Seating, Apple CarPlay/Android Auto',
     type: ListingType.SUV,
     price: 993,
     city: 'London',
     address: '73 Walwyn Rd, CHARLWOOD',
     image: 'A.jpg',
+    bookingsIndex: {},
+    bookings: [],
     host: new ObjectId('5d378db94e84753160e08b56'),
   },
   {
     _id: new ObjectId('5d378db94e84753160e08b43'),
     name: 'MintP',
     seats: 4,
-    description: 'Leather Seats, Fast, Navigation System, Bluetooth, Blind Sport Monitoring, Third Row Seating',
+    description:
+      'Leather Seats, Fast, Navigation System, Bluetooth, Blind Sport Monitoring, Third Row Seating',
     type: ListingType.SUV,
     price: 261,
     city: 'Toronto',
     address: '500 Kingston Rd Toronto ON M4L 1V3',
     image: 'B.jpg',
+    bookingsIndex: {},
+    bookings: [],
     host: new ObjectId('5d378db94e84753160e08b56'),
   },
   {
     _id: new ObjectId('5d378db94e84753160e08b50'),
     name: 'AwissRacer',
     seats: 4,
-    description: 'Leather Seats, Fast, Emergency Braking, Navigation System,  Blind Sport Monitoring, Third Row Seating',
+    description:
+      'Leather Seats, Fast, Emergency Braking, Navigation System,  Blind Sport Monitoring, Third Row Seating',
     type: ListingType.SEDAN,
     price: 206,
     city: 'Lagos',
     address: 'Koko Street,Ogba',
     image: 'C.jpg',
+    bookingsIndex: {},
+    bookings: [],
     host: new ObjectId('5d378db94e84753160e08b56'),
   },
   {
@@ -109,6 +118,8 @@ const listings: Listing[] = [
     city: 'London',
     address: '7 Hertingfordbury Rd, NEWPORT',
     image: 'D.jpg',
+    bookingsIndex: {},
+    bookings: [],
     host: new ObjectId('5d378db94e84753160e08b55'),
   },
   {
@@ -117,46 +128,91 @@ const listings: Listing[] = [
     seats: 4,
     type: ListingType.CONVERTIBLE,
     price: 493,
-    description: 'Leather Seats, Sunroof/MoonRoof, Fast, Backup Camera, Navigation System, Bluetooth, Blind Sport Monitoring, Third Row Seating',
+    description:
+      'Leather Seats, Sunroof/MoonRoof, Fast, Backup Camera, Navigation System, Bluetooth, Blind Sport Monitoring, Third Row Seating',
     city: 'London',
     address: '46 Uxbridge Road, SKIRBECK',
     image: 'E.jpg',
+    bookingsIndex: {},
+    bookings: [],
     host: new ObjectId('5d378db94e84753160e08b55'),
   },
   {
     _id: new ObjectId('5d378db94e84753160e08b4c'),
     name: 'Mojave 2020',
     seats: 8,
-    description: 'Anti Lock braking, Parking Sensor, Fast, Navigation System, Blind Sport Monitoring, Third Row Seating',
+    description:
+      'Anti Lock braking, Parking Sensor, Fast, Navigation System, Blind Sport Monitoring, Third Row Seating',
     type: ListingType.SUV,
     price: 390,
     city: 'Toronto',
     address: '26 Goodwood Park Cres East York ON M4C 2G5',
     image: 'F.jpg',
+    bookingsIndex: {},
+    bookings: [],
     host: new ObjectId('5d378db94e84753160e08b55'),
   },
   {
     _id: new ObjectId('5d378db94e84753160e08b37'),
     name: 'MacOne 2019',
     seats: 10,
-    description: 'Leather Seats, Sunroof/MoonRoof, Remote Start, Bluetooth, Blind Sport Monitoring, Apple CarPlay/Android Auto',
+    description:
+      'Leather Seats, Sunroof/MoonRoof, Remote Start, Bluetooth, Blind Sport Monitoring, Apple CarPlay/Android Auto',
     type: ListingType.VAN,
     price: 421,
     city: 'Lagos',
     address: '12,Rasamond Street, Surulere',
     image: 'G.jpg',
+    bookingsIndex: {},
+    bookings: [],
     host: new ObjectId('5d378db94e84753160e08b56'),
   },
   {
     _id: new ObjectId('5d378db94e84753160e08b38'),
     name: 'Catalina 2021',
     seats: 8,
-    description: 'Leather Seats, Sunroof/MoonRoof, Heated Seats, Fast, Backup Camera, Navigation System, Remote Start, Bluetooth, Blind Sport Monitoring, Third Row Seating, Apple CarPlay/Android Auto',
+    description:
+      'Leather Seats, Sunroof/MoonRoof, Heated Seats, Fast, Backup Camera, Navigation System, Remote Start, Bluetooth, Blind Sport Monitoring, Third Row Seating, Apple CarPlay/Android Auto',
     type: ListingType.SUV,
     price: 901,
     city: 'Los Angeles',
     address: '32010 La 43 Hwy, Albany, LA, 70711',
     image: 'H.jpg',
+    bookingsIndex: {
+      '2019': {
+        '11': {
+          '04': true,
+        },
+        '09': {
+          '19': true,
+        },
+        '05': {
+          '22': true,
+        },
+      },
+      '2020': {
+        '06': {
+          '15': true,
+        },
+        '10': {
+          '05': true,
+        },
+        '02': {
+          '17': true,
+        },
+        '11': {
+          '24': true,
+          '25': true,
+          '26': true,
+          '27': true,
+          '28': true,
+          '29': true,
+          '12': true,
+          '13': true,
+        },
+      },
+    },
+    bookings: [],
     host: new ObjectId('5d378db94e84753160e08b56'),
   },
   {
@@ -169,6 +225,8 @@ const listings: Listing[] = [
     city: 'Los Angeles',
     address: '29977 W Bates Rd, Hammond, LA, 70403',
     image: 'I.jpg',
+    bookingsIndex: {},
+    bookings: [],
     host: new ObjectId('5d378db94e84753160e08b56'),
   },
   {
@@ -181,6 +239,8 @@ const listings: Listing[] = [
     city: 'London',
     address: '35 Neville Street, ILSINGTON',
     image: 'J.jpg',
+    bookingsIndex: {},
+    bookings: [],
     host: new ObjectId('5d378db94e84753160e08b56'),
   },
   {
@@ -193,59 +253,64 @@ const listings: Listing[] = [
     city: 'Dubai',
     address: 'Box No. 55850',
     image: 'A.jpg',
+    bookingsIndex: {},
+    bookings: [],
     host: new ObjectId('5d378db94e84753160e08b57'),
   },
   {
     _id: new ObjectId('5d378db94e84753160e08b54'),
     name: 'IntelAMD 2010',
     seats: 8,
-    description: 'Leather Seats, Sunroof/MoonRoof, Heated Seats, Fast, Backup Camera',
+    description:
+      'Leather Seats, Sunroof/MoonRoof, Heated Seats, Fast, Backup Camera',
     type: ListingType.SUV,
     price: 256,
     city: 'London',
     address: '26 Malcolm Rd, LLANFAIR',
     image: 'B.jpg',
+    bookingsIndex: {},
+    bookings: [],
     host: new ObjectId('5d378db94e84753160e08b57'),
   },
 ];
 
 const bookings: Booking[] = [
-    {
-      _id: new ObjectId('5fc78ac4494ba3b7e049e586'),
-      renter: new ObjectId('5d378db94e84753160e08b56'),
-      listing: new ObjectId('5d378db94e84753160e08b31'),
-      startDay: 'some date',
-      endDay: 'some date'
-    },
-    {
-      _id: new ObjectId('5fc78acee4f8c8aaf65821b6'),
-      renter: new ObjectId('5d378db94e84753160e08b56'),
-      listing: new ObjectId('5d378db94e84753160e08b41'),
-      startDay: 'some date',
-      endDay: 'some date'
-    },
-    {
-      _id: new ObjectId('5fc78ad4d4c39b1f8abeba75'),
-      renter: new ObjectId('5d378db94e84753160e08b56'),
-      listing: new ObjectId('5d378db94e84753160e08b4c'),
-      startDay: 'some date',
-      endDay: 'some date'
-    },
-    {
-      _id: new ObjectId('5fc78adbba61a3d2fb7c06e2'),
-      renter: new ObjectId('5d378db94e84753160e08b56'),
-      listing: new ObjectId('5d378db94e84753160e08b53'),
-      startDay: 'some date',
-      endDay: 'some date'
-    },
-    {
-      _id: new ObjectId('5fc78ae47fbd8cb082c36b77'),
-      renter: new ObjectId('5d378db94e84753160e08b56'),
-      listing: new ObjectId('5d378db94e84753160e08b54'),
-      startDay: 'some date',
-      endDay: 'some date'
-    },
-]
+  {
+    _id: new ObjectId('5fc78ac4494ba3b7e049e586'),
+    renter: new ObjectId('5d378db94e84753160e08b56'),
+    listing: new ObjectId('5d378db94e84753160e08b31'),
+    startDay: 'some date',
+    endDay: 'some date',
+  },
+  {
+    _id: new ObjectId('5fc78acee4f8c8aaf65821b6'),
+    renter: new ObjectId('5d378db94e84753160e08b56'),
+    listing: new ObjectId('5d378db94e84753160e08b41'),
+    startDay: 'some date',
+    endDay: 'some date',
+  },
+  {
+    _id: new ObjectId('5fc78ad4d4c39b1f8abeba75'),
+    renter: new ObjectId('5d378db94e84753160e08b56'),
+    listing: new ObjectId('5d378db94e84753160e08b4c'),
+    startDay: 'some date',
+    endDay: 'some date',
+  },
+  {
+    _id: new ObjectId('5fc78adbba61a3d2fb7c06e2'),
+    renter: new ObjectId('5d378db94e84753160e08b56'),
+    listing: new ObjectId('5d378db94e84753160e08b53'),
+    startDay: 'some date',
+    endDay: 'some date',
+  },
+  {
+    _id: new ObjectId('5fc78ae47fbd8cb082c36b77'),
+    renter: new ObjectId('5d378db94e84753160e08b56'),
+    listing: new ObjectId('5d378db94e84753160e08b54'),
+    startDay: 'some date',
+    endDay: 'some date',
+  },
+];
 
 export const seed = async () => {
   console.log('Seed is running...');

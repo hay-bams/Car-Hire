@@ -25,6 +25,7 @@ export interface Listing_listing {
   type: ListingType;
   city: string;
   address: string;
+  bookingsIndex: string;
   price: number;
   image: string;
   host: Listing_listing_host;

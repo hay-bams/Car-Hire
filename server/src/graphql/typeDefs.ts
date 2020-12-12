@@ -8,6 +8,27 @@ export const typeDefs = gql`
     CONVERTIBLE
   }
 
+  input LoginInput {
+    email: String
+    password: String,
+    withCookie: Boolean!  
+  }
+
+  input RegisterInput {
+    email: String!
+    password: String!
+    firstName: String!
+    lastName: String!
+  }
+
+  input CreateBookingInput {
+    id: ID!
+    renter: ID!
+    startDay: String
+    endDay: String
+  }
+
+
   type User {
     id: ID
     avatar: String
@@ -34,6 +55,8 @@ export const typeDefs = gql`
     address: String!
     price: Int!
     image: String!
+    bookings(page: Int!, limit: Int!): Bookings!
+    bookingsIndex: String!
     host: User!
   }
 
@@ -58,19 +81,6 @@ export const typeDefs = gql`
   #   authenticated: Boolean!
   # }
 
-  input LoginInput {
-    email: String
-    password: String,
-    withCookie: Boolean!  
-  }
-
-  input RegisterInput {
-    email: String!
-    password: String!
-    firstName: String!
-    lastName: String!
-  }
-
   type Query {
     user(id: ID!): User!
     listing(id: ID!): Listing!
@@ -80,5 +90,6 @@ export const typeDefs = gql`
     login(input: LoginInput): User!
     register(input: RegisterInput!): User!
     logout: User!
+    createBooking(input: CreateBookingInput): Booking
   }
 `

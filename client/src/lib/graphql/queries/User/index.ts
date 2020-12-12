@@ -15,6 +15,7 @@ export const USER =  gql`
           description
           type
           price
+          bookingsIndex
           city
           image
         }
@@ -29,6 +30,7 @@ export const USER =  gql`
             seats
             description
             type
+            bookingsIndex
             price
             city
             image

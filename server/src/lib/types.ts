@@ -39,6 +39,18 @@ export enum ListingType {
   CONVERTIBLE = 'CONVERTIBLE',
 }
 
+export interface BookingsIndexDay {
+  [key: string]: boolean;
+}
+
+export interface BookingsIndexMonth {
+  [key: string]: BookingsIndexDay;
+}
+
+export interface BookingIndex {
+  [key: string]: BookingsIndexMonth;
+}
+
 export interface Listing {
   _id: ObjectId;
   name: string;
@@ -50,12 +62,14 @@ export interface Listing {
   address: string;
   image: string;
   host: ObjectId;
+  bookingsIndex: BookingIndex;
+  bookings?: ObjectId[];
 }
 
 export interface Booking {
   _id: ObjectId;
   listing: ObjectId;
-  renter: ObjectId;
+  renter?: ObjectId;
   startDay: string;
   endDay: string;
 }

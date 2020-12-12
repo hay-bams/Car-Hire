@@ -19,25 +19,39 @@ const bookingFieldTitle = {
 export const ListingCreateBooking = ({ listing }: Props) => {
   const [checkin, setCheckin] = useState<Moment | null>(null);
   const [checkout, setCheckout] = useState<Moment | null>(null);
+  const bookingIndexJSON = JSON.parse(listing.bookingsIndex);
 
   const disabledDate = (currentDate: Moment) => {
     if (currentDate) {
+      const year = moment(currentDate).year();
+      const month = moment(currentDate).month();
+      const day = moment(currentDate).date();
+
+      if (
+        bookingIndexJSON[year] &&
+        bookingIndexJSON[year][month] &&
+        bookingIndexJSON[year][month][day]
+      ) {
+        return true;
+      }
       return currentDate.isBefore(moment().endOf('days'));
     } else {
       return false;
     }
   };
 
+  console.log(checkout, checkin);
+
   const disableCheckout = !checkin;
   const disableButton =
     !checkin || !checkout || (checkout && checkout.isBefore(checkin));
 
   const verifyAndSetCheckoutDate = (date: Moment | null) => {
-    setCheckout(date);
-
     if (date && date.isBefore(checkin)) {
       displayErrorMessage('Checkout date cannot be before checkin');
     }
+    
+    setCheckout(date);
   };
 
   const verifyAndSetCheckindate = (date: Moment | null) => {

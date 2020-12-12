@@ -16,6 +16,7 @@ export const USER_BOOKING =  gql`
             seats
             description
             type
+            bookingsIndex
             price
             city
             image

@@ -1,6 +1,6 @@
 import { IResolvers } from 'apollo-server-express';
 import { Request } from 'express';
-import { Db, ObjectId } from 'mongodb';
+import { ObjectId } from 'mongodb';
 import { Database, Listing, User } from '../../../lib/types';
 import { ListingArgs } from './types';
 
@@ -26,6 +26,9 @@ export const listingsResolver: IResolvers = {
       return await db.users.findOne<User>({
         _id: listing.host
       })
+    },
+    bookingsIndex: (listing: Listing, _, __) => {
+      return JSON.stringify(listing.bookingsIndex)
     }
   },
 };

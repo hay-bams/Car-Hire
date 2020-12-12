@@ -17,6 +17,7 @@ export interface User_user_listings_result {
   description: string | null;
   type: ListingType;
   price: number;
+  bookingsIndex: string;
   city: string;
   image: string;
 }
@@ -34,6 +35,7 @@ export interface User_user_bookings_result_listing {
   seats: number;
   description: string | null;
   type: ListingType;
+  bookingsIndex: string;
   price: number;
   city: string;
   image: string;
