@@ -2,11 +2,13 @@ import React from 'react';
 import { Layout, Typography, } from 'antd';
 import { ProfileSection } from '../ProfileSection';
 import { Sidebar } from '../Sidebar';
-import { User } from '../../../../lib/graphql/queries/User/__generated__/User';
+import { User as _User } from '../../../../lib/graphql/queries/User/__generated__/User';
+import { User as UserType } from '../../../../lib/types';
 import { UserListing } from '../UserListings';
 import { UserBookings } from '../UserBookings';
 interface Props {
-  user: User['user'];
+  user: _User['user'];
+  setUser: (user: _User['user']) => void
   limit: number;
   listingPage: number;
   bookingPage: number;
@@ -19,6 +21,7 @@ const { Title } = Typography;
 
 export const UserDashboard = ({
   user,
+  setUser,
   limit,
   pageParams
 }: Props) => {
@@ -30,7 +33,7 @@ export const UserDashboard = ({
       <Sidebar />
       <Layout className="dashboard_layout" style={{ padding: '0 20px 24px' }}>
         {/** TODO: Use Url parameters to determine which dashboard content to show **/}
-        <ProfileSection user={user} />
+        <ProfileSection user={user} setUser={setUser} />
         <div className="user_listing">
           <Title level={3} className="user_active_listing">
             Your Active Listings

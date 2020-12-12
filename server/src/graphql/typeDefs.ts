@@ -96,5 +96,6 @@ export const typeDefs = gql`
     logout: User!
     createBooking(input: CreateBookingInput): Booking
     connectStripe(input: ConnectStripeInput): User!
+    disconnectStripe: User! 
   }
 `

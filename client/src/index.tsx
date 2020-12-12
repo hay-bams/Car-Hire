@@ -27,6 +27,7 @@ import {
 } from './lib/graphql/mutations/Login/__generated__/Login';
 import { LOG_IN } from './lib/graphql';
 import { User as UserType } from './lib/types';
+import { User as _User } from './lib/graphql/queries/User/__generated__/User';
 import { AppHeaderSkeleton, ErrorBanner } from './lib/components';
 import { Spin } from 'antd';
 import { Stripe } from './sections/Stripe';
@@ -38,7 +39,7 @@ const client = new ApolloClient({
   credentials: 'include',
 });
 
-const initialUser: UserType = {
+const initialUser: UserType  = {
   id: null,
   name: null,
   avatar: null,
@@ -115,7 +116,7 @@ const App = () => {
           <Route
             exact
             path="/user/:id"
-            render={(props) => <User {...props} authUser={user} />}
+            render={(props) => <User {...props} authUser={user} setUser={setUser} />}
           />
           <Route component={NotFound} />
         </Switch>

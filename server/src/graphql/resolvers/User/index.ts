@@ -83,6 +83,33 @@ export const userResolver: IResolvers = {
         throw new Error(`Something went wrong: ${err}`);
       }
     },
+    disconnectStripe: async (
+      _root: undefined,
+      _,
+      { req, db }: { req: Request; db: Database }
+    ): Promise<User>  => {
+      let user = await db.users.findOne({
+        _id: new ObjectID(req.signedCookies.user),
+      });
+
+      if (!user) {
+        throw new Error('User not found');
+      }
+
+      const updatedRes = await db.users.findOneAndUpdate(
+        { _id: user._id },
+        { $set: { walletId: undefined } },
+        { returnOriginal: false }
+      );
+
+      if (!updatedRes.value) {
+        throw new Error('Could not update user');
+      }
+
+      user = updatedRes.value;
+
+      return formatUser(user);
+    },
   },
   User: {
     id: (user: User) => user._id,

@@ -6,11 +6,12 @@ import { UserDetails } from './components/UserDetails';
 
 interface Props {
   user: User['user'];
+  setUser: (user: User['user']) => void
 }
 
 const { Content } = Layout;
 
-export const ProfileSection = ({ user }: Props) => {
+export const ProfileSection = ({ user, setUser }: Props) => {
   return (
     <div>
       <UserBreadcrumb />
@@ -21,7 +22,7 @@ export const ProfileSection = ({ user }: Props) => {
           margin: 0
         }}
       >
-        <UserDetails user={user} />
+        <UserDetails user={user} setUser={setUser} />
       </Content>
     </div>
   );

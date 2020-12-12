@@ -4,8 +4,8 @@ import { User as UserType } from '../../lib/types';
 import {
   ConnectStripe as ConnectStripeData,
   ConnectStripeVariables,
-} from '../../lib/graphql/mutations/connectStripe/__generated__/ConnectStripe';
-import { CONNECT_STRIPE } from '../../lib/graphql/mutations/connectStripe';
+} from '../../lib/graphql/mutations/ConnectStripe/__generated__/ConnectStripe';
+import { CONNECT_STRIPE } from '../../lib/graphql/mutations/ConnectStripe';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { displaySccessNotification } from '../../lib/utils';
 import { Layout, Spin } from 'antd';

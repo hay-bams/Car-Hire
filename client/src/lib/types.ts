@@ -3,5 +3,5 @@ export interface User {
   hasWallet: boolean | null;
   id: string | null;
   name: string | null;
-  madeRequest: boolean | null
+  madeRequest?: boolean | null
 }

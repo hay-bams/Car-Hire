@@ -8,6 +8,7 @@ import {
   UserVariables,
 } from '../../lib/graphql/queries/User/__generated__/User';
 import { User as UserType } from '../../lib/types';
+import { User as _User } from '../../lib/graphql/queries/User/__generated__/User';
 import { UserSkeleton } from './components/UserPageSkeleton';
 
 interface MatchParams {
@@ -16,6 +17,7 @@ interface MatchParams {
 
 interface Props {
   authUser: UserType;
+  setUser: (user: UserType | _User['user']) => void
 }
 
 const LIMIT = 4;
@@ -23,6 +25,7 @@ const LIMIT = 4;
 export const User = ({
   match,
   authUser,
+  setUser
 }: Props & RouteComponentProps<MatchParams>) => {
   const [listingPage, setListingPage] = useState(1);
   const [bookingPage, setBookingPage] = useState(1);
@@ -47,6 +50,7 @@ export const User = ({
   const UserDashboardElement = user ? (
     <UserDashboard
       user={user}
+      setUser={setUser}
       // loading={loading}
       pageParams={match.params.id}
       limit={LIMIT}

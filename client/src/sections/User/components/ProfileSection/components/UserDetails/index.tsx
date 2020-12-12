@@ -4,32 +4,55 @@ import { EnvironmentOutlined } from '@ant-design/icons';
 import { UserAvatar } from '../../../../../../lib/components';
 import { Typography } from 'antd';
 import { User } from '../../../../../../lib/graphql/queries/User/__generated__/User';
+import { useMutation } from '@apollo/client';
+import { DISCONNECT_STRIPE } from '../../../../../../lib/graphql/mutations/DisconnectStripe';
+import { DisconnectStripe as DisconnectStripeData } from '../../../../../../lib/graphql/mutations/DisconnectStripe/__generated__/DisconnectStripe';
 
 const { Text } = Typography;
 
 interface Props {
   user: User['user'];
+  setUser: (user: User['user']) => void;
 }
 
 const stripeAuthUrl = `https://connect.stripe.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_S_CLIENT_ID}&scope=read_write`;
-export const UserDetails = ({ user }: Props) => {
+export const UserDetails = ({ user, setUser }: Props) => {
   const [ratings, setRatings] = useState(3);
   const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
+  const [
+    disconnectStripe,
+    {
+      data: disconnectData,
+      loading: disconnectLoading,
+      error: disconnectError,
+    },
+  ] = useMutation<DisconnectStripeData>(DISCONNECT_STRIPE, {
+    onCompleted: (data) => {
+      setUser({ ...user, hasWallet: data.disconnectStripe.hasWallet });
+    },
+  });
 
   const redirectToStripe = () => {
     window.location.href = stripeAuthUrl;
   };
 
-  const StripeButton =   <Button
-  style={{
-    marginTop: 10,
-    backgroundColor: '#035d4d',
-    color: '#fff',
-  }}
-  onClick={!user.hasWallet ? redirectToStripe : () => {}}
->
-  {!user.hasWallet ? 'Connect with stripe': 'Disconnect stripe'}
-</Button>
+  const disconnectFromStripe = () => {
+    disconnectStripe();
+  };
+
+  const StripeButton = (
+    <Button
+      loading={disconnectLoading}
+      style={{
+        marginTop: 10,
+        backgroundColor: '#035d4d',
+        color: '#fff',
+      }}
+      onClick={!user.hasWallet ? redirectToStripe : disconnectFromStripe}
+    >
+      {!user.hasWallet ? 'Connect with stripe' : 'Disconnect stripe'}
+    </Button>
+  );
 
   return (
     <>
