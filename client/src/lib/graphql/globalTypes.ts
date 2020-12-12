@@ -14,6 +14,10 @@ export enum ListingType {
   VAN = "VAN",
 }
 
+export interface ConnectStripeInput {
+  code: string;
+}
+
 export interface LoginInput {
   email?: string | null;
   password?: string | null;

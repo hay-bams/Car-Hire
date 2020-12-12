@@ -1,19 +1,35 @@
 import React, { useState } from 'react';
-import { Card, Col, Rate, Row } from 'antd';
+import { Button, Card, Col, Rate, Row } from 'antd';
 import { EnvironmentOutlined } from '@ant-design/icons';
 import { UserAvatar } from '../../../../../../lib/components';
 import { Typography } from 'antd';
 import { User } from '../../../../../../lib/graphql/queries/User/__generated__/User';
 
-const {  Text } = Typography;
+const { Text } = Typography;
 
 interface Props {
   user: User['user'];
 }
 
+const stripeAuthUrl = `https://connect.stripe.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_S_CLIENT_ID}&scope=read_write`;
 export const UserDetails = ({ user }: Props) => {
   const [ratings, setRatings] = useState(3);
   const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
+
+  const redirectToStripe = () => {
+    window.location.href = stripeAuthUrl;
+  };
+
+  const StripeButton =   <Button
+  style={{
+    marginTop: 10,
+    backgroundColor: '#035d4d',
+    color: '#fff',
+  }}
+  onClick={!user.hasWallet ? redirectToStripe : () => {}}
+>
+  {!user.hasWallet ? 'Connect with stripe': 'Disconnect stripe'}
+</Button>
 
   return (
     <>
@@ -59,6 +75,7 @@ export const UserDetails = ({ user }: Props) => {
                 <Text className="age_profile"> 29 years old</Text>
               </Col>
             </Row>
+            {StripeButton}
           </Col>
         </Row>
       </Card>

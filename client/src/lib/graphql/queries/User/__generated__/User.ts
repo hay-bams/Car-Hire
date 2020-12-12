@@ -58,6 +58,7 @@ export interface User_user {
   id: string | null;
   name: string | null;
   avatar: string | null;
+  hasWallet: boolean | null;
   listings: User_user_listings;
   bookings: User_user_bookings;
 }

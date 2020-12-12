@@ -23,7 +23,8 @@
     "graphql": "^15.4.0",
     "jsonwebtoken": "^8.5.1",
     "lodash.merge": "^4.6.2",
-    "mongodb": "^3.6.3"
+    "mongodb": "^3.6.3",
+    "stripe": "^8.128.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",
@@ -36,6 +37,7 @@
     "@types/lodash.merge": "^4.6.6",
     "@types/mongodb": "^3.5.33",
     "@types/node": "^14.14.6",
+    "@types/stripe": "^8.0.417",
     "@typescript-eslint/eslint-plugin": "^4.6.1",
     "@typescript-eslint/parser": "^4.6.1",
     "dotenv": "^8.2.0",

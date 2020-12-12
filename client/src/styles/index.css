@@ -418,8 +418,26 @@
 }
 
 .booking_column {
-  
+
 }
+
+
+/********************* STRIPE ***********************/
+
+.stripe-in-spin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.stripe-in-spin .ant-spin-dot-item {
+  background: var(--primary-dim);
+}
+
+.stripe-in-spin .ant-spin-text {
+  color: var(--primary-dim);
+}
+
 
 
 

@@ -81,6 +81,10 @@ export const typeDefs = gql`
   #   authenticated: Boolean!
   # }
 
+  input ConnectStripeInput {
+    code: String!
+  }
+
   type Query {
     user(id: ID!): User!
     listing(id: ID!): Listing!
@@ -91,5 +95,6 @@ export const typeDefs = gql`
     register(input: RegisterInput!): User!
     logout: User!
     createBooking(input: CreateBookingInput): Booking
+    connectStripe(input: ConnectStripeInput): User!
   }
 `

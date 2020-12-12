@@ -29,6 +29,7 @@ import { LOG_IN } from './lib/graphql';
 import { User as UserType } from './lib/types';
 import { AppHeaderSkeleton, ErrorBanner } from './lib/components';
 import { Spin } from 'antd';
+import { Stripe } from './sections/Stripe';
 
 const cache = new InMemoryCache();
 const client = new ApolloClient({
@@ -90,6 +91,13 @@ const App = () => {
           {/* <Route exact path="/listing/:id" component={Listing} /> */}
           <Route exact path="/listing/:id" component={Listing} />
           <Route exact path="/listings/:location?" component={Listings} />
+          <Route
+            exact
+            path="/stripe"
+            render={(props) => (
+              <Stripe {...props} setUser={setUser} user={user} />
+            )}
+          />
           <Route
             exact
             path="/login"

@@ -23,3 +23,7 @@ export interface UserListingArgs {
   page: number;
   limit: number;
 }
+
+export interface ConnectStripeArgs {
+  code: string
+}

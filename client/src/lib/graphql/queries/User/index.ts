@@ -6,6 +6,7 @@ export const USER =  gql`
       id
       name
       avatar
+      hasWallet
       listings(page: $listingPage, limit: $limit) {
         total
         result {

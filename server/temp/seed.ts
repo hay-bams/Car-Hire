@@ -10,7 +10,7 @@ const users: User[] = [
     firstName: 'Ayobami',
     avatar: '',
     lastName: 'Adelakun',
-    walletId: 'acct_************',
+    walletId: undefined,
     authenticated: false,
     bookings: [],
     listings: [
@@ -26,7 +26,7 @@ const users: User[] = [
     firstName: 'Peace',
     avatar: '',
     lastName: 'Dike',
-    walletId: 'acct_************',
+    walletId: undefined,
     authenticated: false,
     bookings: [
       new ObjectId('5fc78ac4494ba3b7e049e586'),
@@ -52,7 +52,7 @@ const users: User[] = [
     firstName: 'Chinyere',
     avatar: '',
     lastName: 'Dike',
-    walletId: 'acct_************',
+    walletId: undefined,
     authenticated: false,
     bookings: [],
     listings: [
