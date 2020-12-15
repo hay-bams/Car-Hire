@@ -7,6 +7,7 @@ import {
   useMutation,
 } from '@apollo/client';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { StripeProvider, Elements } from 'react-stripe-elements';
 import reportWebVitals from './reportWebVitals';
 import {
   Home,
@@ -39,7 +40,7 @@ const client = new ApolloClient({
   credentials: 'include',
 });
 
-const initialUser: UserType  = {
+const initialUser: UserType = {
   id: null,
   name: null,
   avatar: null,
@@ -82,46 +83,56 @@ const App = () => {
   }
 
   return (
-    <Router>
-      <Layout className="app layout">
-        <AppHeader user={user} setUser={setUser} />
-        {LoginErrorBanner}
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/host" component={Host} />
-          {/* <Route exact path="/listing/:id" component={Listing} /> */}
-          <Route exact path="/listing/:id" component={Listing} />
-          <Route exact path="/listings/:location?" component={Listings} />
-          <Route
-            exact
-            path="/stripe"
-            render={(props) => (
-              <Stripe {...props} setUser={setUser} user={user} />
-            )}
-          />
-          <Route
-            exact
-            path="/login"
-            render={(props) => (
-              <Login {...props} setUser={setUser} user={user} />
-            )}
-          />
-          <Route
-            exact
-            path="/register"
-            render={(props) => (
-              <Register {...props} setUser={setUser} user={user} />
-            )}
-          />
-          <Route
-            exact
-            path="/user/:id"
-            render={(props) => <User {...props} authUser={user} setUser={setUser} />}
-          />
-          <Route component={NotFound} />
-        </Switch>
-      </Layout>
-    </Router>
+    <StripeProvider apiKey={process.env.REACT_APP_PUBLISHABLE_KEY as string}>
+      <Router>
+        <Layout className="app layout">
+          <AppHeader user={user} setUser={setUser} />
+          {LoginErrorBanner}
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/host" component={Host} />
+            {/* <Route exact path="/listing/:id" component={Listing} /> */}
+            <Route
+              exact
+              path="/listing/:id"
+              render={(props) => <Elements>
+                <Listing {...props} />
+              </Elements>}
+            />
+            <Route exact path="/listings/:location?" component={Listings} />
+            <Route
+              exact
+              path="/stripe"
+              render={(props) => (
+                <Stripe {...props} setUser={setUser} user={user} />
+              )}
+            />
+            <Route
+              exact
+              path="/login"
+              render={(props) => (
+                <Login {...props} setUser={setUser} user={user} />
+              )}
+            />
+            <Route
+              exact
+              path="/register"
+              render={(props) => (
+                <Register {...props} setUser={setUser} user={user} />
+              )}
+            />
+            <Route
+              exact
+              path="/user/:id"
+              render={(props) => (
+                <User {...props} authUser={user} setUser={setUser} />
+              )}
+            />
+            <Route component={NotFound} />
+          </Switch>
+        </Layout>
+      </Router>
+    </StripeProvider>
   );
 };
 

@@ -1,7 +1,9 @@
 import { IResolvers } from 'apollo-server-express';
 import { ObjectId } from 'mongodb';
 import { Booking, BookingIndex, Database } from '../../../lib/types';
+import { Stripe } from '../../../lib/api/Stripe';
 import { BookingArgs } from './types';
+import { Request } from 'express';
 
 const resolveIndex = (
   bookingIndex: BookingIndex,
@@ -42,7 +44,7 @@ export const bookingsResolver: IResolvers = {
     createBooking: async (
       _,
       { input }: { input: BookingArgs },
-      { db }: { db: Database }
+      { db, req }: { req: Request; db: Database }
     ): Promise<Booking> => {
       try {
         // find the listing
@@ -57,13 +59,62 @@ export const bookingsResolver: IResolvers = {
 
         // find renter
         const renter = await db.users.findOne({
-          _id: new ObjectId(input.renter),
+          _id: new ObjectId(req.signedCookies.user),
         });
 
         // check if renter exist
         if (!renter) {
           throw new Error('User Not Found');
         }
+
+        // Make sure renter is not host
+        if (renter._id?.toString() === listing.host.toString()) {
+          throw new Error('Host cannot rent their own listing');
+        }
+
+        // make sure checking date is less than checkoutDate
+        const startDay = new Date(input.startDay);
+        const endDay = new Date(input.endDay);
+
+        if (startDay > endDay) {
+          throw new Error('end day cannot be before start day');
+        }
+
+        // calculate totalPrice
+        const totalPrice =
+          listing.price *
+          ((endDay.getTime() - startDay.getTime()) / 86400000 + 1);
+
+        // get the host
+        const host = await db.users.findOne({
+          _id: new ObjectId(listing.host),
+        });
+
+        // check if the host as a wallet
+        if (!host || !host?.walletId) {
+          throw new Error(
+            "the host either can't be found or is not connected with Stripe"
+          );
+        }
+
+        const bookingIndex = resolveIndex(
+          listing.bookingsIndex,
+          input.startDay,
+          input.endDay
+        );
+
+        // create stripe charge
+        Stripe.charge(totalPrice, input.source, host.walletId);
+
+        // Update the host income
+        db.users.updateOne(
+          {
+            _id: host._id,
+          },
+          {
+            $inc: { income: totalPrice },
+          }
+        );
 
         // create booking
         const insertedRes = await db.bookings.insertOne({
@@ -74,17 +125,8 @@ export const bookingsResolver: IResolvers = {
         });
 
         const insertedBooking = insertedRes.ops[0];
-        // const start = new Date(input.startDay)
-        // const end= new Date(input.endDay)
 
-        const bookingIndex = resolveIndex(
-          listing.bookingsIndex,
-          input.startDay,
-          input.endDay
-        );
- 
-
-       // update listing booking fields
+        // update listing booking fields
         db.listings.updateOne(
           { _id: listing._id },
           {

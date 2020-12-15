@@ -10,7 +10,7 @@ export const UserDetailsSkeleton = () => {
             <Skeleton.Avatar size={100} shape="circle" />
           </Col>
           <Col lg={20}  style={{marginTop: 0, marginLeft: 20}}>
-            <Skeleton paragraph={{ rows: 1 }} />
+            <Skeleton paragraph={{ rows: 2 }} />
           </Col>
         </Row>
       </Card>

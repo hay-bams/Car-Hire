@@ -51,7 +51,6 @@ export const User = ({
     <UserDashboard
       user={user}
       setUser={setUser}
-      // loading={loading}
       pageParams={match.params.id}
       limit={LIMIT}
       bookingPage={bookingPage}

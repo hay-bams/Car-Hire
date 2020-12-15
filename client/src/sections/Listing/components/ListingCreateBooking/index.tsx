@@ -3,6 +3,7 @@ import { Typography, Divider, DatePicker, Button } from 'antd';
 import { Listing } from '../../../../lib/graphql/queries/Listing/__generated__/Listing';
 import moment, { Moment } from 'moment';
 import { displayErrorMessage } from '../../../../lib/utils';
+import { WrappedListingBookingCreateModal as ListingCreateBookingModal } from '../';
 
 interface Props {
   listing: Listing['listing'];
@@ -17,8 +18,10 @@ const bookingFieldTitle = {
 };
 
 export const ListingCreateBooking = ({ listing }: Props) => {
-  const [checkin, setCheckin] = useState<Moment | null>(null);
-  const [checkout, setCheckout] = useState<Moment | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [startDay, setStartDay] = useState<Moment | null>(null);
+  const [endDay, setEndDay] = useState<Moment | null>(null);
+
   const bookingIndexJSON = JSON.parse(listing.bookingsIndex);
 
   const disabledDate = (currentDate: Moment) => {
@@ -40,27 +43,35 @@ export const ListingCreateBooking = ({ listing }: Props) => {
     }
   };
 
-  console.log(checkout, checkin);
-
-  const disableCheckout = !checkin;
+  const disableendDay = !startDay;
   const disableButton =
-    !checkin || !checkout || (checkout && checkout.isBefore(checkin));
+    !startDay || !endDay || (endDay && endDay.isBefore(startDay));
 
-  const verifyAndSetCheckoutDate = (date: Moment | null) => {
-    if (date && date.isBefore(checkin)) {
-      displayErrorMessage('Checkout date cannot be before checkin');
+  const verifyAndsetEndDayDate = (date: Moment | null) => {
+    if (date && date.isBefore(startDay)) {
+      displayErrorMessage('endDay date cannot be before startDay');
     }
-    
-    setCheckout(date);
+
+    setEndDay(date);
   };
 
-  const verifyAndSetCheckindate = (date: Moment | null) => {
-    setCheckin(date);
+  const verifyAndSetStartDaydate = (date: Moment | null) => {
+    setStartDay(date);
 
-    if (date && date.isAfter(checkout)) {
-      displayErrorMessage('Checkout date cannot be before checkin');
+    if (date && date.isAfter(endDay)) {
+      displayErrorMessage('endDay date cannot be before startDay');
     }
   };
+
+  const BookingModal =  startDay && endDay ?(
+    <ListingCreateBookingModal
+      price={listing.price}
+      startDay={startDay}
+      endDay={endDay}
+      modalOpen={modalOpen}
+      setModalOpen={setModalOpen}
+    />
+  ) : null;
 
   return (
     <Paragraph
@@ -80,7 +91,7 @@ export const ListingCreateBooking = ({ listing }: Props) => {
       </Title>
       <Paragraph style={{ width: '50%', margin: '20px auto' }}>
         <DatePicker
-          onChange={(date: Moment | null) => verifyAndSetCheckindate(date)}
+          onChange={(date: Moment | null) => verifyAndSetStartDaydate(date)}
           disabledDate={disabledDate}
           style={{ width: '100%' }}
         />
@@ -94,19 +105,27 @@ export const ListingCreateBooking = ({ listing }: Props) => {
       </Title>
       <Paragraph style={{ width: '50%', margin: '20px auto 50px auto' }}>
         <DatePicker
-          onChange={(date: Moment | null) => verifyAndSetCheckoutDate(date)}
+          onChange={(date: Moment | null) => verifyAndsetEndDayDate(date)}
           disabledDate={disabledDate}
-          disabled={disableCheckout}
+          disabled={disableendDay}
           style={{ width: '100%' }}
         />
       </Paragraph>
 
       <Divider style={{ backgroundColor: '#e8e8e8' }} />
       <Paragraph style={{ width: '40%', margin: '20px auto 50px auto' }}>
-        <Button disabled={disableButton} style={{ width: '100%' }}>
+        <Button
+        size="large"
+          disabled={disableButton}
+          style={{ width: '90%',    backgroundColor: '#035d4d',
+          color: '#fff', }}
+          onClick={() => setModalOpen(!modalOpen)}
+        >
           Request to book
         </Button>
+        <Text mark strong>You wont be charge yet</Text>
       </Paragraph>
+      {BookingModal}
     </Paragraph>
   );
 };

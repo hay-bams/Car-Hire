@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Card, Col, Rate, Row } from 'antd';
 import { EnvironmentOutlined } from '@ant-design/icons';
-import { UserAvatar } from '../../../../../../lib/components';
+import { ErrorBanner, UserAvatar } from '../../../../../../lib/components';
 import { Typography } from 'antd';
 import { User } from '../../../../../../lib/graphql/queries/User/__generated__/User';
 import { useMutation } from '@apollo/client';
@@ -22,7 +22,6 @@ export const UserDetails = ({ user, setUser }: Props) => {
   const [
     disconnectStripe,
     {
-      data: disconnectData,
       loading: disconnectLoading,
       error: disconnectError,
     },
@@ -31,6 +30,13 @@ export const UserDetails = ({ user, setUser }: Props) => {
       setUser({ ...user, hasWallet: data.disconnectStripe.hasWallet });
     },
   });
+
+  const Error = disconnectError ? (
+    <ErrorBanner
+      message="Uh oh! Something went wrong :("
+      description={disconnectError?.message}
+    />
+  ) : null;
 
   const redirectToStripe = () => {
     window.location.href = stripeAuthUrl;
@@ -56,6 +62,7 @@ export const UserDetails = ({ user, setUser }: Props) => {
 
   return (
     <>
+    {Error}
       <Card>
         <Row gutter={16}>
           <Col xs={24} lg={3}>

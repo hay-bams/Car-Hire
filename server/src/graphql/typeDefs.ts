@@ -23,7 +23,7 @@ export const typeDefs = gql`
 
   input CreateBookingInput {
     id: ID!
-    renter: ID!
+    source: String!
     startDay: String
     endDay: String
   }
